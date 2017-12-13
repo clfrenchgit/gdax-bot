@@ -1,0 +1,3007 @@
+(* Content-type: application/vnd.wolfram.mathematica *)
+
+(*** Wolfram Notebook File ***)
+(* http://www.wolfram.com/nb *)
+
+(* CreatedBy='Mathematica 11.1' *)
+
+(*CacheID: 234*)
+(* Internal cache information:
+NotebookFileLineBreakTest
+NotebookFileLineBreakTest
+NotebookDataPosition[       158,          7]
+NotebookDataLength[    122834,       2999]
+NotebookOptionsPosition[    105763,       2753]
+NotebookOutlinePosition[    106110,       2768]
+CellTagsIndexPosition[    106067,       2765]
+WindowFrame->Normal*)
+
+(* Beginning of Notebook Content *)
+Notebook[{
+
+Cell[CellGroupData[{
+Cell[BoxData[
+ RowBox[{"NotebookDirectory", "[", "]"}]], "Input",
+ CellChangeTimes->{{3.7068382030271764`*^9, 
+  3.7068382099875746`*^9}},ExpressionUUID->"9f24d9da-2f20-4510-97bd-\
+30ec0b50837f"],
+
+Cell[BoxData["\<\"C:\\\\Users\\\\French\\\\Documents\\\\Notebooks\\\\Finance\\\
+\\\"\>"], "Output",
+ CellChangeTimes->{
+  3.706838210805621*^9},ExpressionUUID->"2c2fee80-ab5b-4ba2-a42d-\
+141064e55a0a"]
+}, Open  ]],
+
+Cell[TextData[ButtonBox["https://developers.coinbase.com/docs/wallet/guides/\
+buy-sell",
+ BaseStyle->"Hyperlink",
+ ButtonData->{
+   URL["https://developers.coinbase.com/docs/wallet/guides/buy-sell"], None},
+ ButtonNote->
+  "https://developers.coinbase.com/docs/wallet/guides/buy-sell"]], "Text",
+ CellChangeTimes->{{3.7053689907038755`*^9, 3.705368992492977*^9}, {
+  3.70795787492537*^9, 3.70795787492537*^9}},
+ Background->GrayLevel[
+  0.85],ExpressionUUID->"a5da66c0-bbb0-4b19-840d-c30861fc3f64"],
+
+Cell["buy and sell bitcoin programmatically", "Text",
+ CellChangeTimes->{
+  3.7053689802902794`*^9},ExpressionUUID->"153a0431-4f26-45e1-9af0-\
+012e7bbf2d1f"],
+
+Cell["set up very simple price thresholds to buy or sell", "Text",
+ CellChangeTimes->{
+  3.7053690240947847`*^9},ExpressionUUID->"f505f9fe-4f50-4e7b-a3a2-\
+935b64d64988"],
+
+Cell["verify payment method", "Text",
+ CellChangeTimes->{{3.7053690506333027`*^9, 
+  3.705369055431577*^9}},ExpressionUUID->"480c3700-e5ec-4679-b723-\
+c9db7eeec429"],
+
+Cell[BoxData[{
+ RowBox[{
+  RowBox[{"from", " ", 
+   RowBox[{"coinbase", ".", "wallet", ".", "client"}], " ", "import", " ", 
+   "Client"}], "\n"}], "\n", 
+ RowBox[{
+  RowBox[{"client", " ", "=", " ", 
+   RowBox[{"Client", 
+    RowBox[{"(", 
+     RowBox[{
+      RowBox[{"<", "api_key", ">"}], ",", "\n", "                ", 
+      RowBox[{"<", "api_secret", ">"}]}], ")"}]}]}], "\n"}], "\n", 
+ RowBox[{"payment_methods", " ", "=", " ", 
+  RowBox[{
+   RowBox[{"client", ".", "get_payment"}], "_methods", 
+   RowBox[{"(", ")"}]}]}]}], "Code",
+ InitializationCell->False,
+ CellChangeTimes->{{3.7053690588167706`*^9, 3.705369071805514*^9}},
+ Background->RGBColor[
+  0.88, 1, 0.88],ExpressionUUID->"f926ade6-57c6-404e-86a2-077850c9cb71"],
+
+Cell["price checks that will trigger either a buy or a sell", "Text",
+ CellChangeTimes->{
+  3.7053691045623875`*^9},ExpressionUUID->"ab0bf8fe-45f5-4a72-a327-\
+15371071e957"],
+
+Cell[BoxData[
+ RowBox[{
+  RowBox[{
+   RowBox[{
+    RowBox[{
+     RowBox[{
+      RowBox[{
+       RowBox[{
+        RowBox[{
+         RowBox[{
+          RowBox[{
+           RowBox[{
+            RowBox[{
+             RowBox[{
+              RowBox[{
+               RowBox[{
+                RowBox[{
+                 RowBox[{
+                  RowBox[{
+                   RowBox[{
+                    RowBox[{
+                    RowBox[{
+                    RowBox[{
+                    RowBox[{
+                    RowBox[{
+                    RowBox[{
+                    RowBox[{
+                    RowBox[{
+                    RowBox[{
+                    RowBox[{
+                    RowBox[{
+                    RowBox[{"account", " ", "=", " ", 
+                    RowBox[{
+                    RowBox[{"client", ".", "get_primary"}], "_account", 
+                    RowBox[{"(", ")"}]}]}], "\n", 
+                    RowBox[{"payment_method", " ", "=", " ", 
+                    RowBox[{
+                    RowBox[{"client", ".", "get_payment"}], "_methods", 
+                    RowBox[{
+                    RowBox[{"(", ")"}], "[", "0", "]"}]}]}], "\n", "\n", 
+                    RowBox[{
+                    RowBox[{"buy_price", "_threshold"}], "  ", "=", " ", 
+                    "200"}], "\n", 
+                    RowBox[{
+                    RowBox[{"sell_price", "_threshold"}], " ", "=", " ", 
+                    "500"}], "\n", "\n", 
+                    RowBox[{"buy_price", "  ", "=", " ", 
+                    RowBox[{
+                    RowBox[{"client", ".", "get_buy"}], "_price", 
+                    RowBox[{"(", 
+                    RowBox[{"currency", "="}]}]}]}]}], "\[CloseCurlyQuote]"}],
+                     "USD"}], "\[CloseCurlyQuote]"}], ")"}], "\n", 
+                    RowBox[{"sell_price", " ", "=", " ", 
+                    RowBox[{
+                    RowBox[{"client", ".", "get_sell"}], "_price", 
+                    RowBox[{"(", 
+                    RowBox[{"currency", "="}]}]}]}]}], "\[CloseCurlyQuote]"}],
+                     "USD"}], "\[CloseCurlyQuote]"}], ")"}], "\n", "\n", 
+                    RowBox[{
+                    RowBox[{
+                    RowBox[{"if", " ", "float", 
+                    RowBox[{"(", 
+                    RowBox[{"sell_price", ".", "amount"}], ")"}]}], " ", "<=",
+                     " ", 
+                    RowBox[{"sell_price", 
+                    RowBox[{"_threshold", ":", "\n", "  ", "sell"}]}]}], " ", 
+                    "=", " ", 
+                    RowBox[{
+                    RowBox[{"account", ".", "sell"}], 
+                    RowBox[{"(", 
+                    RowBox[{"amount", "="}]}]}]}]}], "\[CloseCurlyQuote]"}], 
+                   "1"}], "\[CloseCurlyQuote]"}], ",", "\n", 
+                 "                      ", 
+                 RowBox[{"currency", "="}]}], "\[CloseCurlyDoubleQuote]"}], 
+               "BTC"}], "\[CloseCurlyDoubleQuote]"}], ",", "\n", 
+             "                      ", 
+             RowBox[{"payment_method", "=", 
+              RowBox[{"payment_method", ".", "id"}]}]}], ")"}], "\n", "\n", 
+           "\n", 
+           RowBox[{
+            RowBox[{
+             RowBox[{"if", " ", "float", 
+              RowBox[{"(", 
+               RowBox[{"buy_price", ".", "amount"}], ")"}]}], " ", "<=", " ", 
+             RowBox[{"buy_price", 
+              RowBox[{"_threshold", ":", "\n", "  ", "buy"}]}]}], " ", "=", 
+            " ", 
+            RowBox[{
+             RowBox[{"account", ".", "buy"}], 
+             RowBox[{"(", 
+              RowBox[{"amount", "="}]}]}]}]}], "\[CloseCurlyQuote]"}], "1"}], 
+        "\[CloseCurlyQuote]"}], ",", "\n", "                    ", 
+       RowBox[{"currency", "="}]}], "\[CloseCurlyDoubleQuote]"}], "BTC"}], 
+    "\[CloseCurlyDoubleQuote]"}], ",", "\n", "                    ", 
+   RowBox[{"payment_method", "=", 
+    RowBox[{"payment_method", ".", "id"}]}]}], ")"}]], "Code",
+ InitializationCell->False,
+ CellChangeTimes->{{3.705369116214054*^9, 3.705369124074504*^9}},
+ Background->RGBColor[
+  0.88, 1, 0.88],ExpressionUUID->"83afbe9d-c851-4ce9-b42e-35ff657bec2a"],
+
+Cell["price monitoring", "Text",
+ CellChangeTimes->{
+  3.705369168353036*^9},ExpressionUUID->"4ff2f5f1-0a7e-4579-8a3d-\
+d00aacf8becb"],
+
+Cell["\<\
+make a request to Coinbase\[CloseCurlyQuote]s prices endpoint in order to \
+retrieve current bitcoin price \
+\>", "Text",
+ CellChangeTimes->{
+  3.7053692398697324`*^9},ExpressionUUID->"15cc9c9c-dfa0-42ce-8e4a-\
+effd9f511326"],
+
+Cell["\<\
+prices endpoint is part of a broader category of unauthenticated, read-only \
+endpoints called Data Endpoints\
+\>", "Text",
+ CellChangeTimes->{{3.7053692738475323`*^9, 
+  3.7053692751891346`*^9}},ExpressionUUID->"68234e00-0c3f-4a69-90b0-\
+95803c810ffe"],
+
+Cell["\<\
+prices available from the prices endpoint:
+
+Buy price
+Sell price
+Spot price\
+\>", "Text",
+ CellChangeTimes->{
+  3.7053693024262915`*^9},ExpressionUUID->"de2afe96-be05-4e90-b7a8-\
+a042641265d3"],
+
+Cell["cURL request", "Text",
+ CellChangeTimes->{
+  3.705369340717721*^9},ExpressionUUID->"8874c2cf-2861-42c6-96df-\
+d15975dc5ae7"],
+
+Cell[BoxData[
+ RowBox[{
+  RowBox[{
+   RowBox[{"curl", " ", 
+    RowBox[{"https", ":"}]}], "//", 
+   RowBox[{
+    RowBox[{
+     RowBox[{
+      RowBox[{"api", ".", "coinbase", ".", "com"}], "/", "v2"}], "/", 
+     "prices"}], "/", 
+    RowBox[{"spot", "?", "currency"}]}]}], "=", "USD"}]], "Code",
+ InitializationCell->False,
+ CellChangeTimes->{{3.7053693497894316`*^9, 3.7053693630338545`*^9}},
+ Background->RGBColor[
+  0.88, 1, 0.88],ExpressionUUID->"a73878ea-fa8a-4ed6-b229-d753a6f4c34a"],
+
+Cell[CellGroupData[{
+
+Cell[BoxData[
+ RowBox[{"Import", "[", 
+  RowBox[{
+  "\"\<https://api.coinbase.com/v2/prices/spot?currency=USD\>\"", ",", 
+   "\"\<Text\>\""}], "]"}]], "Input",
+ CellChangeTimes->{{3.7053693748430758`*^9, 
+  3.705369392205906*^9}},ExpressionUUID->"fc32c9bf-73bf-4aa8-9cdf-\
+51ccaee37161"],
+
+Cell[BoxData["\<\"{\\\"data\\\":{\\\"amount\\\":\\\"2339.38\\\",\\\"currency\\\
+\":\\\"USD\\\"},\\\"warnings\\\":[{\\\"id\\\":\\\"missing_version\\\",\\\"\
+message\\\":\\\"Please supply API version (YYYY-MM-DD) as CB-VERSION header\\\
+\",\\\"url\\\":\\\"https://developers.coinbase.com/api#versioning\\\"}]}\"\>"]\
+, "Output",
+ CellChangeTimes->{
+  3.7087382289394503`*^9},ExpressionUUID->"68a1dea8-513f-4b3f-b4d1-\
+2b195274480b"]
+}, Open  ]],
+
+Cell["lower", "Text",
+ CellChangeTimes->{{3.7087382211488295`*^9, 
+  3.7087382216836314`*^9}},ExpressionUUID->"5a3e1e1e-d640-4e50-95b5-\
+1af113f1c6f0"],
+
+Cell[BoxData["\<\"{\\\"data\\\":{\\\"amount\\\":\\\"2402.00\\\",\\\"currency\\\
+\":\\\"USD\\\"},\\\"warnings\\\":[{\\\"id\\\":\\\"missing_version\\\",\\\"\
+message\\\":\\\"Please supply API version (YYYY-MM-DD) as CB-VERSION header\\\
+\",\\\"url\\\":\\\"https://developers.coinbase.com/api#versioning\\\"}]}\"\>"]\
+, "Output",
+ CellChangeTimes->{
+  3.707957716574291*^9},ExpressionUUID->"05df7973-d772-4e8b-88b6-\
+facc79835f4d"],
+
+Cell["was", "Text",
+ CellChangeTimes->{{3.7079577121750836`*^9, 
+  3.7079577124402843`*^9}},ExpressionUUID->"d04550b5-b765-49aa-8775-\
+a79c91bda882"],
+
+Cell[BoxData["\<\"{\\\"data\\\":{\\\"amount\\\":\\\"2416.39\\\",\\\"currency\\\
+\":\\\"USD\\\"},\\\"warnings\\\":[{\\\"id\\\":\\\"missing_version\\\",\\\"\
+message\\\":\\\"Please supply API version (YYYY-MM-DD) as CB-VERSION header\\\
+\",\\\"url\\\":\\\"https://developers.coinbase.com/api#versioning\\\"}]}\"\>"]\
+, "Output",
+ CellChangeTimes->{
+  3.705369400551921*^9},ExpressionUUID->"1b80b14e-074b-4c97-927b-\
+616275e242ab"],
+
+Cell["using one of the official coinbase libraries", "Text",
+ CellChangeTimes->{{3.705369643736906*^9, 
+  3.7053696658318524`*^9}},ExpressionUUID->"46d6f890-14b1-49af-830c-\
+f0cc541432e2"],
+
+Cell["\<\
+pip install coinbase
+# or
+easy_install coinbase\
+\>", "Text",
+ CellChangeTimes->{{3.7053696619932456`*^9, 
+  3.705369689563447*^9}},ExpressionUUID->"849ac388-48d9-4eb5-a9d3-\
+45bda237bb09"],
+
+Cell["retrieve that price data", "Text",
+ CellChangeTimes->{
+  3.7053696786746273`*^9},ExpressionUUID->"dcbda27b-2b57-40d9-b1bd-\
+296726eb5a78"],
+
+Cell[BoxData[{
+ RowBox[{
+  RowBox[{"from", " ", 
+   RowBox[{"coinbase", ".", "wallet", ".", "client"}], " ", "import", " ", 
+   "Client"}], "\n"}], "\n", 
+ RowBox[{
+  RowBox[{"client", " ", "=", " ", 
+   RowBox[{"Client", 
+    RowBox[{"(", 
+     RowBox[{
+      RowBox[{"<", "api_key", ">"}], ",", " ", 
+      RowBox[{"<", "api_secret", ">"}]}], ")"}]}]}], "\n"}], "\n", 
+ RowBox[{
+  RowBox[{"currency_code", " ", "=", " ", 
+   RowBox[{"'", 
+    RowBox[{"USD", "'"}], "  ", "#", " ", "can", " ", "also", " ", "use", " ",
+     "EUR"}]}], ",", " ", "CAD", ",", " ", 
+  RowBox[{
+   RowBox[{"etc", ".", "\n", "\n", "#"}], " ", "Make", " ", "the", " ", 
+   "request"}]}], "\n", 
+ RowBox[{
+  RowBox[{"price", " ", "=", " ", 
+   RowBox[{
+    RowBox[{"client", ".", "get_spot"}], "_price", 
+    RowBox[{"(", 
+     RowBox[{"currency", "=", "currency_code"}], ")"}]}]}], "\n"}], "\n", 
+ RowBox[{
+  RowBox[{"print", " ", "'"}], "Current", " ", "bitcoin", " ", "price", " ", 
+  "in", " ", "%", 
+  RowBox[{"s", ":", " ", 
+   RowBox[{"%", 
+    RowBox[{"s", "'"}], " ", "%", " ", 
+    RowBox[{"(", 
+     RowBox[{"currency_code", ",", " ", 
+      RowBox[{"price", ".", "amount"}]}], ")"}]}]}]}]}], "Code",
+ InitializationCell->False,
+ CellChangeTimes->{{3.7053693497894316`*^9, 3.7053693630338545`*^9}, 
+   3.7053697099554024`*^9},
+ Background->RGBColor[
+  0.88, 1, 0.88],ExpressionUUID->"be99c5e8-fa25-4efa-b5ff-4d987e9e0fcf"],
+
+Cell["\<\
+Lawnmower is a bitcoin investment app built on the Coinbase API\
+\>", "Text",
+ CellChangeTimes->{
+  3.705369805639759*^9},ExpressionUUID->"f0373e1f-ad79-45d4-9b44-\
+cd28eccc7b00"],
+
+Cell["\<\
+users are most interested in the current value of their bitcoin holdings\
+\>", "Text",
+ CellChangeTimes->{
+  3.705369832944581*^9},ExpressionUUID->"79230a0b-db32-4c38-ba4c-\
+9def07f95104"],
+
+Cell[TextData[ButtonBox["https://developers.coinbase.com/docs/exchange",
+ BaseStyle->"Hyperlink",
+ ButtonData->{
+   URL["https://developers.coinbase.com/docs/exchange"], None},
+ ButtonNote->"https://developers.coinbase.com/docs/exchange"]], "Text",
+ CellChangeTimes->{
+  3.705370026181385*^9, {3.707957897311409*^9, 3.707957897311409*^9}},
+ Background->GrayLevel[
+  0.85],ExpressionUUID->"340bde82-69f3-483c-9b19-74d1586bf9e9"],
+
+Cell["\<\
+GDAX\[CloseCurlyQuote]s fully featured trading API offers an efficient way \
+for developers to build digital asset trading applications\
+\>", "Text",
+ CellChangeTimes->{
+  3.705369989318973*^9},ExpressionUUID->"4e51c167-0148-4f62-aae8-\
+a05f51a941cc"],
+
+Cell[TextData[ButtonBox["https://docs.gdax.com/",
+ BaseStyle->"Hyperlink",
+ ButtonData->{
+   URL["https://docs.gdax.com/"], None},
+ ButtonNote->"https://docs.gdax.com/"]], "Text",
+ CellChangeTimes->{
+  3.7053701101396885`*^9, {3.7079579138942385`*^9, 3.7079579138942385`*^9}},
+ Background->GrayLevel[
+  0.85],ExpressionUUID->"56a61a8f-865e-406f-ae7a-854c226b7489"],
+
+Cell["\<\
+APIs are separated into two categories: trading and feed. Trading APIs \
+require authentication and provide access to placing orders and other account \
+information. Feed APIs provide market data and are public.\
+\>", "Text",
+ CellChangeTimes->{
+  3.705370215900316*^9},ExpressionUUID->"2f0147b6-2cf0-4d24-a9a3-\
+850f371b9895"],
+
+Cell["https://docs.gdax.com/#place-a-new-order", "Text",
+ CellChangeTimes->{
+  3.7053701950023117`*^9},ExpressionUUID->"a57ec70a-1d73-417d-b86b-\
+fe30f1f38695"],
+
+Cell["https://docs.gdax.com/#products", "Text",
+ CellChangeTimes->{
+  3.705370244901025*^9},ExpressionUUID->"5d50b2db-2ac9-4a81-88de-\
+78aa7bbc0f14"],
+
+Cell["\<\
+The base_min_size and base_max_size fields define the min and max order size. \
+The quote_increment field specifies the min order price as well as the price \
+increment.\
+\>", "Text",
+ CellChangeTimes->{
+  3.7053703808804674`*^9},ExpressionUUID->"01b4ffb8-5305-40ac-8f4b-\
+032a814c8a42"],
+
+Cell[BoxData[
+ RowBox[{"[", "\n", "    ", 
+  RowBox[{"{", "\n", "        ", 
+   RowBox[{
+    RowBox[{"\"\<id\>\"", ":", " ", "\"\<BTC-USD\>\""}], ",", "\n", 
+    "        ", 
+    RowBox[{"\"\<base_currency\>\"", ":", " ", "\"\<BTC\>\""}], ",", "\n", 
+    "        ", 
+    RowBox[{"\"\<quote_currency\>\"", ":", " ", "\"\<USD\>\""}], ",", "\n", 
+    "        ", 
+    RowBox[{"\"\<base_min_size\>\"", ":", " ", "\"\<0.01\>\""}], ",", "\n", 
+    "        ", 
+    RowBox[{"\"\<base_max_size\>\"", ":", " ", "\"\<10000.00\>\""}], ",", 
+    "\n", "        ", 
+    RowBox[{"\"\<quote_increment\>\"", ":", " ", "\"\<0.01\>\""}]}], "\n", 
+   "    ", "}"}], "\n", "]"}]], "Code",
+ InitializationCell->False,
+ CellChangeTimes->{{3.7053693497894316`*^9, 3.7053693630338545`*^9}, 
+   3.7053697099554024`*^9, 3.7053704035812707`*^9},
+ Background->RGBColor[
+  0.88, 1, 0.88],ExpressionUUID->"451b1956-319c-4bc2-b9d1-5d86f9e4e61f"],
+
+Cell["\<\
+Historic rates for a product. Rates are returned in grouped buckets based on \
+requested granularity.\
+\>", "Text",
+ CellChangeTimes->{
+  3.705370448649731*^9},ExpressionUUID->"68674024-258d-4f65-9b68-\
+9186c0f95bf4"],
+
+Cell["\<\
+Historical rates should not be polled frequently. If you need real-time \
+information, use the trade and book endpoints along with the websocket feed.\
+\>", "Text",
+ CellChangeTimes->{
+  3.705370498314742*^9},ExpressionUUID->"068944ce-aef0-4730-ad69-\
+00a57499b6df"],
+
+Cell[BoxData[
+ RowBox[{"[", "\n", "    ", 
+  RowBox[{
+   RowBox[{"[", " ", 
+    RowBox[{
+    "time", ",", " ", "low", ",", " ", "high", ",", " ", "open", ",", " ", 
+     "close", ",", " ", "volume"}], " ", "]"}], ",", "\n", "    ", 
+   RowBox[{"[", " ", 
+    RowBox[{
+    "1415398768", ",", " ", "0.32", ",", " ", "4.2", ",", " ", "0.35", ",", 
+     " ", "4.2", ",", " ", "12.3"}], " ", "]"}], ",", "\n", "    ", "..."}], 
+  "\n", "]"}]], "Code",
+ InitializationCell->False,
+ CellChangeTimes->{{3.7053693497894316`*^9, 3.7053693630338545`*^9}, 
+   3.7053697099554024`*^9, 3.705370470003482*^9},
+ Background->RGBColor[
+  0.88, 1, 0.88],ExpressionUUID->"9a739168-b075-421e-ad26-66e37c2db620"],
+
+Cell[TextData[ButtonBox["https://docs.gdax.com/#currencies",
+ BaseStyle->"Hyperlink",
+ ButtonData->{
+   URL["https://docs.gdax.com/#currencies"], None},
+ ButtonNote->"https://docs.gdax.com/#currencies"]], "Text",
+ CellChangeTimes->{
+  3.705370313525502*^9, {3.7079579658423295`*^9, 
+   3.7079579658423295`*^9}},ExpressionUUID->"33c94258-3d77-49ba-ae86-\
+c86d97efb500"],
+
+Cell[BoxData[{
+ RowBox[{
+  RowBox[{"from", " ", 
+   RowBox[{"coinbase", ".", "wallet", ".", "client"}], " ", "import", " ", 
+   "Client"}], "\n"}], "\n", 
+ RowBox[{
+  RowBox[{"client", " ", "=", " ", 
+   RowBox[{"Client", 
+    RowBox[{"(", 
+     RowBox[{
+      RowBox[{"<", "api_key", ">"}], ",", " ", 
+      RowBox[{"<", "api_secret", ">"}]}], ")"}]}]}], "\n"}], "\n", 
+ RowBox[{
+  RowBox[{"currency_code", " ", "=", " ", 
+   RowBox[{"'", 
+    RowBox[{"USD", "'"}], "  ", "#", " ", "can", " ", "also", " ", "use", " ",
+     "EUR"}]}], ",", " ", "CAD", ",", " ", 
+  RowBox[{
+   RowBox[{"etc", ".", "\n", "\n", "#"}], " ", "Make", " ", "the", " ", 
+   "request"}]}], "\n", 
+ RowBox[{
+  RowBox[{"price", " ", "=", " ", 
+   RowBox[{
+    RowBox[{"client", ".", "get_spot"}], "_price", 
+    RowBox[{"(", 
+     RowBox[{"currency", "=", "currency_code"}], ")"}]}]}], "\n"}], "\n", 
+ RowBox[{
+  RowBox[{"print", " ", "'"}], "Current", " ", "bitcoin", " ", "price", " ", 
+  "in", " ", "%", 
+  RowBox[{"s", ":", " ", 
+   RowBox[{"%", 
+    RowBox[{"s", "'"}], " ", "%", " ", 
+    RowBox[{"(", 
+     RowBox[{"currency_code", ",", " ", 
+      RowBox[{"price", ".", "amount"}]}], ")"}]}]}]}]}], "Code",
+ InitializationCell->False,
+ CellChangeTimes->{{3.7053693497894316`*^9, 3.7053693630338545`*^9}, 
+   3.7053697099554024`*^9},
+ Background->RGBColor[
+  0.88, 1, 0.88],ExpressionUUID->"0415aaab-c333-40eb-a0a6-6f8f1d6ce86b"],
+
+Cell["\<\
+Currency codes will conform to the ISO 4217 standard where possible. \
+Currencies which have or had no representation in ISO 4217 may use a custom \
+code.\
+\>", "Text",
+ CellChangeTimes->{
+  3.7053705657630873`*^9},ExpressionUUID->"3885526a-4b54-4c0d-bd82-\
+05543560e000"],
+
+Cell[BoxData[
+ RowBox[{"[", 
+  RowBox[{
+   RowBox[{"{", "\n", "    ", 
+    RowBox[{
+     RowBox[{"\"\<id\>\"", ":", " ", "\"\<BTC\>\""}], ",", "\n", "    ", 
+     RowBox[{"\"\<name\>\"", ":", " ", "\"\<Bitcoin\>\""}], ",", "\n", "    ", 
+     RowBox[{"\"\<min_size\>\"", ":", " ", "\"\<0.00000001\>\""}]}], "\n", 
+    "}"}], ",", " ", 
+   RowBox[{"{", "\n", "    ", 
+    RowBox[{
+     RowBox[{"\"\<id\>\"", ":", " ", "\"\<USD\>\""}], ",", "\n", "    ", 
+     RowBox[{"\"\<name\>\"", ":", " ", "\"\<United States Dollar\>\""}], ",", 
+     "\n", "    ", 
+     RowBox[{"\"\<min_size\>\"", ":", " ", "\"\<0.01000000\>\""}]}], "\n", 
+    "}"}]}], "]"}]], "Code",
+ InitializationCell->False,
+ CellChangeTimes->{{3.7053693497894316`*^9, 3.7053693630338545`*^9}, 
+   3.7053697099554024`*^9, 3.7053705893430796`*^9},
+ Background->RGBColor[
+  0.88, 1, 0.88],ExpressionUUID->"f0f1e9af-813a-4ba5-b3b1-deb7211f622d"],
+
+Cell["\<\
+The websocket feed provides real-time market data updates for orders and \
+trades.
+
+wss://ws-feed.gdax.com\
+\>", "Text",
+ CellChangeTimes->{
+  3.7053706069336514`*^9, {3.7079579931579776`*^9, 3.7079579931579776`*^9}, {
+   3.7079580941425548`*^9, 3.707958095967758*^9}, {3.707958145081705*^9, 
+   3.707958145525731*^9}},ExpressionUUID->"4bd559e4-854b-4c81-8a90-\
+e37af4386d61"],
+
+Cell["\<\
+The Market Data API is an unauthenticated set of endpoints for retrieving \
+market data. These endpoints provide snapshots of market data\
+\>", "Text",
+ CellChangeTimes->{
+  3.7087389730061207`*^9},ExpressionUUID->"336ba0fc-4358-4b0e-a1af-\
+4f3dc96103b8"],
+
+Cell["\<\
+The websocket feed is publicly available, but connection to it are \
+rate-limited to 1 per 4 seconds per IP.\
+\>", "Text",
+ CellChangeTimes->{
+  3.708738484727853*^9},ExpressionUUID->"1d4ae1cf-41c4-4953-92a2-\
+60070b4d424f"],
+
+Cell[BoxData[
+ TagBox[
+  ButtonBox[
+   PaneSelectorBox[{False->"\<\"https://docs.gdax.com/#websocket-feed\"\>", 
+    True->
+    StyleBox["\<\"https://docs.gdax.com/#websocket-feed\"\>", 
+     "HyperlinkActive"]}, Dynamic[
+     CurrentValue["MouseOver"]],
+    BaseStyle->{"Hyperlink"},
+    FrameMargins->0,
+    ImageSize->Automatic],
+   BaseStyle->"Hyperlink",
+   ButtonData->{
+     URL["https://docs.gdax.com/#websocket-feed"], None},
+   ButtonNote->"https://docs.gdax.com/#websocket-feed"],
+  Annotation[#, "https://docs.gdax.com/#websocket-feed", 
+   "Hyperlink"]& ]], "Text",
+ CellChangeTimes->{{3.7079581916613693`*^9, 3.707958198604767*^9}, {
+   3.7087386024537277`*^9, 3.7087386205877647`*^9}, 3.708739102142705*^9},
+ Background->GrayLevel[
+  0.85],ExpressionUUID->"3752a288-681e-4e5c-a5d5-638182149592"],
+
+Cell["\<\
+The easiest way to connect to an authenticated feed is to use our gdax-node \
+library.\
+\>", "Text",
+ CellChangeTimes->{
+  3.7087391735753126`*^9},ExpressionUUID->"675aa3b8-c051-4a0b-8d91-\
+bf897085689b"],
+
+Cell[BoxData[
+ TagBox[
+  ButtonBox[
+   PaneSelectorBox[{False->"\<\"https://github.com/coinbase/gdax-node\"\>", 
+    True->
+    StyleBox["\<\"https://github.com/coinbase/gdax-node\"\>", 
+     "HyperlinkActive"]}, Dynamic[
+     CurrentValue["MouseOver"]],
+    BaseStyle->{"Hyperlink"},
+    FrameMargins->0,
+    ImageSize->Automatic],
+   BaseStyle->"Hyperlink",
+   ButtonData->{
+     URL["https://github.com/coinbase/gdax-node"], None},
+   ButtonNote->"https://github.com/coinbase/gdax-node"],
+  Annotation[#, "https://github.com/coinbase/gdax-node", 
+   "Hyperlink"]& ]], "Text",
+ CellChangeTimes->{{3.7079581916613693`*^9, 3.707958198604767*^9}, {
+   3.7087386024537277`*^9, 3.7087386205877647`*^9}, 3.7087392080510206`*^9},
+ Background->GrayLevel[
+  0.85],ExpressionUUID->"8659df9f-b381-4940-931f-f311be036180"],
+
+Cell["\<\
+To get the necessary parameters, you would go through the same process as you \
+do to make authenticated calls to the API.
+
+The easiest way to connect to an authenticated feed is to use our gdax-node \
+library.\
+\>", "Text",
+ CellChangeTimes->{
+  3.7087385347575936`*^9},ExpressionUUID->"b3e7be6f-f3ed-4a01-80c6-\
+3f94614930af"],
+
+Cell[BoxData[
+ TagBox[
+  ButtonBox[
+   PaneSelectorBox[{
+    False->"\<\"https://docs.gdax.com/#creating-a-request\"\>", True->
+    StyleBox["\<\"https://docs.gdax.com/#creating-a-request\"\>", 
+     "HyperlinkActive"]}, Dynamic[
+     CurrentValue["MouseOver"]],
+    BaseStyle->{"Hyperlink"},
+    FrameMargins->0,
+    ImageSize->Automatic],
+   BaseStyle->"Hyperlink",
+   ButtonData->{
+     URL["https://docs.gdax.com/#creating-a-request"], None},
+   ButtonNote->"https://docs.gdax.com/#creating-a-request"],
+  Annotation[#, "https://docs.gdax.com/#creating-a-request", 
+   "Hyperlink"]& ]], "Text",
+ CellChangeTimes->{{3.7079581916613693`*^9, 3.707958198604767*^9}, {
+  3.7087386024537277`*^9, 3.7087386205877647`*^9}},
+ Background->GrayLevel[
+  0.85],ExpressionUUID->"505fa047-b45f-4067-be2f-204f86a8ac45"],
+
+Cell["\<\
+All REST requests must contain the following headers:
+
+    CB-ACCESS-KEY The api key as a string.
+    CB-ACCESS-SIGN The base64-encoded signature (see Signing a Message).
+    CB-ACCESS-TIMESTAMP A timestamp for your request.
+    CB-ACCESS-PASSPHRASE The passphrase you specified when creating the API \
+key.
+
+All request bodies should have content type application/json and be valid \
+JSON.\
+\>", "Text",
+ CellChangeTimes->{
+  3.7087386511506166`*^9},ExpressionUUID->"0fea7d2e-22cd-42c9-b825-\
+1e24c45a2319"],
+
+Cell[BoxData[
+ TagBox[
+  ButtonBox[
+   PaneSelectorBox[{False->"\<\"https://docs.gdax.com/#sandbox\"\>", True->
+    StyleBox["\<\"https://docs.gdax.com/#sandbox\"\>", "HyperlinkActive"]}, 
+    Dynamic[
+     CurrentValue["MouseOver"]],
+    BaseStyle->{"Hyperlink"},
+    FrameMargins->0,
+    ImageSize->Automatic],
+   BaseStyle->"Hyperlink",
+   ButtonData->{
+     URL["https://docs.gdax.com/#sandbox"], None},
+   ButtonNote->"https://docs.gdax.com/#sandbox"],
+  Annotation[#, "https://docs.gdax.com/#sandbox", "Hyperlink"]& ]], "Text",
+ CellChangeTimes->{{3.7079581916613693`*^9, 3.707958198604767*^9}},
+ Background->GrayLevel[
+  0.85],ExpressionUUID->"cf990a14-d39c-4099-affc-ff7856ffb31c"],
+
+Cell["\<\
+The sandbox provides all of the functionality of the production exchange but \
+allows you to add fake funds for testing.\
+\>", "Text",
+ CellChangeTimes->{
+  3.7053706685901318`*^9},ExpressionUUID->"8eb10048-bfb6-41de-b927-\
+7d734fafcaf8"],
+
+Cell["\<\
+To add funds, use the web interface deposit and withdraw buttons as you would \
+on the production web interface.
+
+Sandbox URLs
+
+When testing your API connectivity, make sure to use the following URLs.\
+\>", "Text",
+ CellChangeTimes->{
+  3.7053706878142266`*^9, {3.707958456224244*^9, 
+   3.707958469936668*^9}},ExpressionUUID->"a84084a2-baaf-431a-ba46-\
+2b90f6671f79"],
+
+Cell["\<\
+Website
+https://public.sandbox.gdax.com
+
+REST API
+https://api-public.sandbox.gdax.com
+
+Websocket Feed
+wss://ws-feed-public.sandbox.gdax.com
+
+FIX API
+https://fix-public.sandbox.gdax.com\
+\>", "Text",
+ CellChangeTimes->{
+  3.705370705749092*^9},ExpressionUUID->"7e82e9c1-4bcd-4f0f-bbce-\
+8ec2e88641d6"],
+
+Cell["\<\
+When connecting to the FIX API in Sandbox, you must start with an HTTP \
+Upgrade request and set the Upgrade header to fix. After receiving a 101 \
+Switching Protocols response from the server, you may continue using the \
+connection as a regular FIX connection. Remember to use HTTPS for this.\
+\>", "Text",
+ CellChangeTimes->{
+  3.7053707768818393`*^9},ExpressionUUID->"377d2624-4233-4b62-81b7-\
+326ec7728cf2"],
+
+Cell[BoxData[{
+ RowBox[{
+  RowBox[{
+   RowBox[{"var", " ", "https"}], " ", "=", " ", 
+   RowBox[{"require", 
+    RowBox[{"(", 
+     RowBox[{"'", 
+      RowBox[{"https", "'"}]}], ")"}]}]}], ";"}], "\n", 
+ RowBox[{
+  RowBox[{
+   RowBox[{
+    RowBox[{"var", " ", "request"}], " ", "=", " ", 
+    RowBox[{
+     RowBox[{"https", ".", "request"}], 
+     RowBox[{"(", 
+      RowBox[{"{", "\n", "    ", 
+       RowBox[{
+        RowBox[{"method", ":", " ", 
+         RowBox[{"'", 
+          RowBox[{"GET", "'"}]}]}], ",", "\n", "    ", 
+        RowBox[{
+         RowBox[{"url", ":", " ", 
+          RowBox[{"'", "http"}], ":"}], "//", 
+         RowBox[{"fix", "-", 
+          RowBox[{"public", ".", "sandbox", ".", "gdax", ".", 
+           RowBox[{"com", "'"}]}]}]}], ",", "\n", "    ", 
+        RowBox[{"headers", ":", " ", 
+         RowBox[{"{", "\n", "        ", 
+          RowBox[{
+           RowBox[{"Upgrade", ":", " ", 
+            RowBox[{"'", 
+             RowBox[{"fix", "'"}]}]}], ",", "\n", "        ", 
+           RowBox[{"Connection", ":", " ", 
+            RowBox[{"'", 
+             RowBox[{"Upgrade", "'"}]}]}]}], "\n", "    ", "}"}]}]}], "\n", 
+       "}"}], ")"}]}]}], ";"}], "\n"}], "\n", 
+ RowBox[{
+  RowBox[{
+   RowBox[{
+    RowBox[{"request", ".", "on"}], 
+    RowBox[{"(", 
+     RowBox[{
+      RowBox[{"'", 
+       RowBox[{"upgrade", "'"}]}], ",", " ", 
+      RowBox[{"function", 
+       RowBox[{"(", 
+        RowBox[{"req", ",", " ", "socket", ",", " ", "head"}], ")"}], " ", 
+       RowBox[{"{", "\n", "    ", 
+        RowBox[{"//", " ", 
+         RowBox[{
+         "Pass", " ", "socket", " ", "to", " ", "FIX", " ", "client"}]}], 
+        "\n", "}"}]}]}], ")"}]}], ";"}], "\n"}], "\n", 
+ RowBox[{
+  RowBox[{
+   RowBox[{"request", ".", "end"}], 
+   RowBox[{"(", ")"}]}], ";"}]}], "Code",
+ InitializationCell->False,
+ CellChangeTimes->{{3.7053693497894316`*^9, 3.7053693630338545`*^9}, 
+   3.7053697099554024`*^9, 3.7053705893430796`*^9, 3.7053707524604435`*^9},
+ Background->RGBColor[
+  0.88, 1, 0.88],ExpressionUUID->"c1ca2318-ae20-4ddf-9583-062b32db0c11"],
+
+Cell["https://docs.gdax.com/#private", "Text",
+ CellChangeTimes->{
+  3.7053708491798143`*^9},ExpressionUUID->"3c1eaa4e-9950-40fc-b9c3-\
+9d7d6980ac4f"],
+
+Cell["\<\
+Before being able to sign any requests, you must create an API key via the \
+GDAX website. If you are eligible for margin you may select to generate an \
+API key for either your default profile, or your margin profile. Upon \
+creating a key you will have 3 pieces of information which you must remember:
+
+Key
+Secret
+Passphrase\
+\>", "Text",
+ CellChangeTimes->{
+  3.7053708687203083`*^9},ExpressionUUID->"5eaccdd4-9fb1-4059-91be-\
+96d26d962425"],
+
+Cell["https://www.gdax.com/trade/ETH-USD", "Text",
+ CellChangeTimes->{{3.705371716220127*^9, 3.7053717338211336`*^9}, {
+  3.707958609806514*^9, 
+  3.707958610399315*^9}},ExpressionUUID->"2d1b8d9e-c4ae-4e7d-94e5-\
+39759d07779d"],
+
+Cell["https://developers.coinbase.com/", "Text",
+ CellChangeTimes->{
+  3.7053719621201916`*^9},ExpressionUUID->"f902881e-a995-4dd7-b2e1-\
+e63be2bbbece"],
+
+Cell["\<\
+Capabilities:
+
+Generate bitcoin, litecoin and ethereum wallets and addresses
+Buy/sell and send/receive bitcoin, litecoin and ethereum
+Securely store bitcoin, litecoin and ethereum
+Retrieve real-time or historical price information
+Receive notifications when payments arrive
+Accept and request bitcoin payments as a merchant\
+\>", "Text",
+ CellChangeTimes->{
+  3.7053719863985806`*^9},ExpressionUUID->"5f417f59-2cf1-45c6-941e-\
+e7e3f978d393"],
+
+Cell["A quick guide on getting an ENS name and setting it up", "Text",
+ CellChangeTimes->{
+  3.7053720152472305`*^9},ExpressionUUID->"cb78f8bd-6356-4a14-a1d0-\
+76d3a3a14255"],
+
+Cell["\<\
+https://www.reddit.com/r/ethereum/comments/6clvs6/a_quick_guide_on_getting_an_\
+ens_name_and_setting/?st=j3fd9pwb&sh=bbc424b3\
+\>", "Text",
+ CellChangeTimes->{
+  3.7053719982552586`*^9},ExpressionUUID->"b190450a-ae52-4e1e-8fba-\
+825175b9a9e4"],
+
+Cell["\<\
+process of bidding for and configuring an Ethereum Name Service (ENS) domain \
+name to allow turning your 0xYOURADDRESS address into something easy to \
+remember such as supercooldomain.eth\
+\>", "Text",
+ CellChangeTimes->{
+  3.70537204985421*^9},ExpressionUUID->"0d230a69-016f-4c38-9a5c-5b0f930277c1"],
+
+Cell[BoxData[
+ TagBox[
+  ButtonBox[
+   PaneSelectorBox[{False->"\<\"https://docs.gdax.com/#authentication\"\>", 
+    True->
+    StyleBox["\<\"https://docs.gdax.com/#authentication\"\>", 
+     "HyperlinkActive"]}, Dynamic[
+     CurrentValue["MouseOver"]],
+    BaseStyle->{"Hyperlink"},
+    FrameMargins->0,
+    ImageSize->Automatic],
+   BaseStyle->"Hyperlink",
+   ButtonData->{
+     URL["https://docs.gdax.com/#authentication"], None},
+   ButtonNote->"https://docs.gdax.com/#authentication"],
+  Annotation[#, "https://docs.gdax.com/#authentication", 
+   "Hyperlink"]& ]], "Text",
+ CellChangeTimes->{{3.707958645842577*^9, 3.707958651567787*^9}},
+ Background->GrayLevel[
+  0.85],ExpressionUUID->"1c90e643-cd71-4c60-8deb-05463d3dddf3"],
+
+Cell["\<\
+The CB-ACCESS-SIGN header is generated by creating a sha256 HMAC using the \
+base64-decoded secret key on the prehash string timestamp + method + \
+requestPath + body (where + represents string concatenation) and \
+base64-encode the output.\
+\>", "Text",
+ CellChangeTimes->{
+  3.707959270026874*^9},ExpressionUUID->"650b97b5-84fa-44c7-bcef-\
+b55ea8fcb994"],
+
+Cell[BoxData[{
+ RowBox[{
+  RowBox[{
+   RowBox[{
+    RowBox[{"var", " ", "crypto"}], "=", 
+    RowBox[{"require", 
+     RowBox[{"(", 
+      RowBox[{"'", 
+       RowBox[{"crypto", "'"}]}], ")"}]}]}], ";"}], 
+  "\n"}], "\[IndentingNewLine]", 
+ RowBox[{
+  RowBox[{
+   RowBox[{
+    RowBox[{"var", " ", "secret"}], "=", 
+    RowBox[{
+     RowBox[{
+      RowBox[{"'", 
+       RowBox[{"PYPd1Hv4J6", "/", "7"}], "x"}], "..."}], "'"}]}], ";"}], 
+  "\n"}], "\[IndentingNewLine]", 
+ RowBox[{
+  RowBox[{
+   RowBox[{"var", " ", "timestamp"}], "=", 
+   RowBox[{
+    RowBox[{"Date", ".", "now"}], 
+    RowBox[{
+     RowBox[{"(", ")"}], "/", "1000"}]}]}], ";"}], "\n", 
+ RowBox[{
+  RowBox[{
+   RowBox[{
+    RowBox[{"var", " ", "requestPath"}], "=", 
+    RowBox[{"'", "/", 
+     RowBox[{"orders", "'"}]}]}], ";"}], "\n"}], "\[IndentingNewLine]", 
+ RowBox[{
+  RowBox[{
+   RowBox[{
+    RowBox[{"var", " ", "body"}], "=", 
+    RowBox[{
+     RowBox[{"JSON", ".", "stringify"}], 
+     RowBox[{"(", 
+      RowBox[{"{", 
+       RowBox[{
+        RowBox[{"price", ":", 
+         RowBox[{"'", 
+          RowBox[{"1.0", "'"}]}]}], ",", 
+        RowBox[{"size", ":", 
+         RowBox[{"'", 
+          RowBox[{"1.0", "'"}]}]}], ",", 
+        RowBox[{"side", ":", 
+         RowBox[{"'", 
+          RowBox[{"buy", "'"}]}]}], ",", 
+        RowBox[{
+         RowBox[{
+          RowBox[{"product_id:", "'"}], "BTC"}], "-", 
+         RowBox[{"USD", "'"}]}]}], "}"}], ")"}]}]}], ";"}], 
+  "\n"}], "\[IndentingNewLine]", 
+ RowBox[{
+  RowBox[{
+   RowBox[{
+    RowBox[{"var", " ", "method"}], "=", 
+    RowBox[{"'", 
+     RowBox[{"POST", "'"}]}]}], ";"}], "\n"}], "\[IndentingNewLine]", 
+ RowBox[{"//", 
+  RowBox[{
+  "create", " ", "the", " ", "prehash", " ", "string", " ", "by", " ", 
+   "concatenating", " ", "required", " ", "parts"}]}], "\n", 
+ RowBox[{
+  RowBox[{
+   RowBox[{
+    RowBox[{"var", " ", "what"}], "=", 
+    RowBox[{"timestamp", "+", "method", "+", "requestPath", "+", "body"}]}], 
+   ";"}], "\n"}], "\[IndentingNewLine]", 
+ RowBox[{"//", 
+  RowBox[{"decode", " ", "the", " ", "base64", " ", "secret"}]}], "\n", 
+ RowBox[{
+  RowBox[{
+   RowBox[{
+    RowBox[{"var", " ", "key"}], "=", 
+    RowBox[{"Buffer", 
+     RowBox[{"(", 
+      RowBox[{"secret", ",", 
+       RowBox[{"'", 
+        RowBox[{"base64", "'"}]}]}], ")"}]}]}], ";"}], 
+  "\n"}], "\[IndentingNewLine]", 
+ RowBox[{"//", 
+  RowBox[{
+  "create", " ", "a", " ", "sha256", " ", "hmac", " ", "with", " ", "the", 
+   " ", "secret"}]}], "\n", 
+ RowBox[{
+  RowBox[{
+   RowBox[{
+    RowBox[{"var", " ", "hmac"}], "=", 
+    RowBox[{
+     RowBox[{"crypto", ".", "createHmac"}], 
+     RowBox[{"(", 
+      RowBox[{
+       RowBox[{"'", 
+        RowBox[{"sha256", "'"}]}], ",", "key"}], ")"}]}]}], ";"}], 
+  "\n"}], "\[IndentingNewLine]", 
+ RowBox[{"//", 
+  RowBox[{
+  "sign", " ", "the", " ", "require", " ", "message", " ", "with", " ", "the",
+    " ", "hmac"}]}], "\n", 
+ RowBox[{"//", 
+  RowBox[{
+  "and", " ", "finally", " ", "base64", " ", "encode", " ", "the", " ", 
+   "result"}]}], "\n", 
+ RowBox[{
+  RowBox[{"return", " ", 
+   RowBox[{"hmac", ".", "update"}], 
+   RowBox[{
+    RowBox[{"(", "what", ")"}], ".", "digest"}], 
+   RowBox[{"(", 
+    RowBox[{"'", 
+     RowBox[{"base64", "'"}]}], ")"}]}], ";"}], "\n"}], "Code",
+ CellChangeTimes->{{3.7079590105672183`*^9, 3.7079590105828185`*^9}},
+ Background->RGBColor[
+  0.88, 1, 0.88],ExpressionUUID->"2b9e2d77-4b85-47d0-8827-fdff78ffaf35"],
+
+Cell[CellGroupData[{
+
+Cell[BoxData[
+ RowBox[{"ExportString", "[", "\[IndentingNewLine]", 
+  RowBox[{
+   RowBox[{
+    RowBox[{"IntegerString", "[", "\[IndentingNewLine]", 
+     RowBox[{
+      RowBox[{"Hash", "[", "\[IndentingNewLine]", 
+       RowBox[{
+        RowBox[{"ImportString", "[", 
+         RowBox[{"\"\<secret\>\"", ",", 
+          RowBox[{"{", 
+           RowBox[{"\"\<Base64\>\"", ",", "\"\<String\>\""}], "}"}]}], "]"}], 
+        ",", "\[IndentingNewLine]", "\"\<SHA256\>\""}], "]"}], ",", 
+      "\[IndentingNewLine]", "16"}], "]"}], "<>", 
+    "\"\<timestamp+method+requestPath+body\>\""}], ",", "\[IndentingNewLine]", 
+   RowBox[{"{", 
+    RowBox[{"\"\<Base64\>\"", ",", "\"\<String\>\""}], "}"}]}], 
+  "]"}]], "Input",
+ CellChangeTimes->{{3.7058665594940133`*^9, 3.7058665594970136`*^9}, {
+  3.707958707353485*^9, 
+  3.7079587613139796`*^9}},ExpressionUUID->"5604f289-75c7-406d-8041-\
+1b6dbd89a344"],
+
+Cell[BoxData["\<\"\
+ODM0MmViODA5NjQ2NDg3YTZkMjM4NjgwZGE0N2E2MTVmNTE3NzcwM2Q4YzllNmI2ZDgxZGJiNmZi\\\
+nNDcxYzMxYnRpbWVzdGFtcCttZXRob2QrcmVxdWVzdFBhdGgrYm9keQ==\\n\"\>"], "Output",
+ CellChangeTimes->{
+  3.7058665634524093`*^9, {3.707958770910997*^9, 3.7079587805986137`*^9}, 
+   3.720017124065075*^9},ExpressionUUID->"d4e7f73e-0a9d-4b08-a776-\
+e45a9ec47c09"]
+}, Open  ]],
+
+Cell["\<\
+Something is missing here. You do not just keyspec<>prehash. There is an \
+encryption step.\
+\>", "Text",
+ CellChangeTimes->{{3.707959084464548*^9, 
+  3.7079591201262107`*^9}},ExpressionUUID->"d3c4ae30-a094-4e31-b612-\
+0d5e4bb667c1"],
+
+Cell["\<\
+Encrypt[keyspec,expr] encrypts expr using the cryptographic key specification \
+keyspec.\
+\>", "Text",
+ CellChangeTimes->{{3.7079594412537746`*^9, 
+  3.7079594448885813`*^9}},ExpressionUUID->"fbc13ff6-fd8c-4d0d-9a09-\
+9040dfea7574"],
+
+Cell[CellGroupData[{
+
+Cell[BoxData[
+ RowBox[{"keyspec", "=", 
+  RowBox[{"IntegerString", "[", "\[IndentingNewLine]", 
+   RowBox[{
+    RowBox[{"Hash", "[", "\[IndentingNewLine]", 
+     RowBox[{
+      RowBox[{"ImportString", "[", 
+       RowBox[{"\"\<secret\>\"", ",", 
+        RowBox[{"{", 
+         RowBox[{"\"\<Base64\>\"", ",", "\"\<String\>\""}], "}"}]}], "]"}], 
+      ",", "\[IndentingNewLine]", "\"\<SHA256\>\""}], "]"}], ",", 
+    "\[IndentingNewLine]", "16"}], "]"}]}]], "Input",
+ CellChangeTimes->{{3.7079604651665735`*^9, 
+  3.7079604684581795`*^9}},ExpressionUUID->"58dc30ad-e6b1-4564-9371-\
+b4de6ed12d19"],
+
+Cell[BoxData["\<\"\
+8342eb809646487a6d238680da47a615f5177703d8c9e6b6d81dbb6fb471c31b\"\>"], \
+"Output",
+ CellChangeTimes->{3.708739728962238*^9, 
+  3.7200171324515543`*^9},ExpressionUUID->"6e251f2e-49af-4d1e-83f2-\
+39cd2a380da2"]
+}, Open  ]],
+
+Cell["was", "Text",
+ CellChangeTimes->{{3.708739725321233*^9, 
+  3.7087397256812334`*^9}},ExpressionUUID->"6b424733-5627-42d3-a40d-\
+00d22ba2b076"],
+
+Cell[BoxData["\<\"\
+8342eb809646487a6d238680da47a615f5177703d8c9e6b6d81dbb6fb471c31b\"\>"], \
+"Output",
+ CellChangeTimes->{3.7079604697529817`*^9, 3.707961865322833*^9, 
+  3.7087396259770927`*^9, 
+  3.7087397017962*^9},ExpressionUUID->"8d524892-610a-4470-ae8b-7699a76cf671"],
+
+Cell[CellGroupData[{
+
+Cell[BoxData[
+ RowBox[{"enc", "=", 
+  RowBox[{"Encrypt", "[", 
+   RowBox[{"keyspec", ",", "\"\<timestamp+method+requestPath+body\>\""}], 
+   "]"}]}]], "Input",
+ CellChangeTimes->{{3.7079595685061984`*^9, 3.7079595978362503`*^9}, {
+  3.707960188234887*^9, 3.707960189514089*^9}, {3.707960475790192*^9, 
+  3.707960478598197*^9}},ExpressionUUID->"d725aca2-4bb7-4d6b-b354-\
+80f68a5b62e9"],
+
+Cell[BoxData[
+ TagBox[
+  TemplateBox[{RowBox[{
+      StyleBox[
+       TagBox["EncryptedObject", "SummaryHead"], "NonInterpretableSummary"], 
+      StyleBox["[", "NonInterpretableSummary"], 
+      DynamicModuleBox[{
+       Typeset`open$$ = False, Typeset`embedState$$ = "Ready"}, 
+       TemplateBox[{
+         PaneSelectorBox[{False -> GridBox[{{
+               GraphicsBox[
+                RasterBox[CompressedData["
+1:eJxTTMoPSmVmYGDggGIQe+tRU7vJfx/Zvzpjq1KT/8Y+7sastXtS3tobH7rd
+LCDwAIN+dDIv7YvyUwyaVPW4aFzu6b1otWqWwh37dR/0xD/KPrCX3bD6ZPC1
+xzjV4zKfVHNIVY8rHHCZQ2o4UEs9reORWvaSGp60DgdqxQut0w8u9bjESfUv
+tdIzqf6lVjhQK51Qy15qhT+p9gIA6lJG1g==
+                 "], {{0, 0}, {8, 8}}, {0, 1}], Frame -> None, 
+                FrameLabel -> {None, None}, 
+                FrameTicks -> {{None, None}, {None, None}}, GridLinesStyle -> 
+                Directive[
+                  GrayLevel[0.5, 0.4]], ImageSize -> 42, 
+                Method -> {
+                 "DefaultBoundaryStyle" -> Automatic, "DefaultPlotStyle" -> 
+                  Automatic}, PlotRangePadding -> None], 
+               GridBox[{{
+                  RowBox[{
+                    TagBox["\"data length: \"", "SummaryItemAnnotation"], 
+                    "\[InvisibleSpace]", 
+                    TagBox["\"48 bytes\"", "SummaryItem"]}]}, {
+                  RowBox[{
+                    TagBox["\"IV length: \"", "SummaryItemAnnotation"], 
+                    "\[InvisibleSpace]", 
+                    TagBox[
+                    TemplateBox[{"128", "\" bits\""}, "RowDefault"], 
+                    "SummaryItem"]}]}, {
+                  RowBox[{
+                    TagBox["\"original form: \"", "SummaryItemAnnotation"], 
+                    "\[InvisibleSpace]", 
+                    TagBox["String", "SummaryItem"]}]}}, 
+                GridBoxAlignment -> {
+                 "Columns" -> {{Left}}, "Rows" -> {{Automatic}}}, AutoDelete -> 
+                False, GridBoxItemSize -> {
+                 "Columns" -> {{Automatic}}, "Rows" -> {{Automatic}}}, 
+                GridBoxSpacings -> {
+                 "Columns" -> {{2}}, "Rows" -> {{Automatic}}}, 
+                BaseStyle -> {
+                 ShowStringCharacters -> False, NumberMarks -> False, 
+                  PrintPrecision -> 3, ShowSyntaxStyles -> False}]}}, 
+             GridBoxAlignment -> {"Rows" -> {{Top}}}, AutoDelete -> False, 
+             GridBoxItemSize -> {
+              "Columns" -> {{Automatic}}, "Rows" -> {{Automatic}}}, 
+             BaselinePosition -> {1, 1}], True -> GridBox[{{
+               GraphicsBox[
+                RasterBox[CompressedData["
+1:eJxTTMoPSmVmYGDggGIQe+tRU7vJfx/Zvzpjq1KT/8Y+7sastXtS3tobH7rd
+LCDwAIN+dDIv7YvyUwyaVPW4aFzu6b1otWqWwh37dR/0xD/KPrCX3bD6ZPC1
+xzjV4zKfVHNIVY8rHHCZQ2o4UEs9reORWvaSGp60DgdqxQut0w8u9bjESfUv
+tdIzqf6lVjhQK51Qy15qhT+p9gIA6lJG1g==
+                 "], {{0, 0}, {8, 8}}, {0, 1}], Frame -> None, 
+                FrameLabel -> {None, None}, 
+                FrameTicks -> {{None, None}, {None, None}}, GridLinesStyle -> 
+                Directive[
+                  GrayLevel[0.5, 0.4]], ImageSize -> 42, 
+                Method -> {
+                 "DefaultBoundaryStyle" -> Automatic, "DefaultPlotStyle" -> 
+                  Automatic}, PlotRangePadding -> None], 
+               GridBox[{{
+                  RowBox[{
+                    TagBox["\"data length: \"", "SummaryItemAnnotation"], 
+                    "\[InvisibleSpace]", 
+                    TagBox["\"48 bytes\"", "SummaryItem"]}]}, {
+                  RowBox[{
+                    TagBox["\"IV length: \"", "SummaryItemAnnotation"], 
+                    "\[InvisibleSpace]", 
+                    TagBox[
+                    TemplateBox[{"128", "\" bits\""}, "RowDefault"], 
+                    "SummaryItem"]}]}, {
+                  RowBox[{
+                    TagBox["\"original form: \"", "SummaryItemAnnotation"], 
+                    "\[InvisibleSpace]", 
+                    TagBox["String", "SummaryItem"]}]}}, 
+                GridBoxAlignment -> {
+                 "Columns" -> {{Left}}, "Rows" -> {{Automatic}}}, AutoDelete -> 
+                False, GridBoxItemSize -> {
+                 "Columns" -> {{Automatic}}, "Rows" -> {{Automatic}}}, 
+                GridBoxSpacings -> {
+                 "Columns" -> {{2}}, "Rows" -> {{Automatic}}}, 
+                BaseStyle -> {
+                 ShowStringCharacters -> False, NumberMarks -> False, 
+                  PrintPrecision -> 3, ShowSyntaxStyles -> False}]}}, 
+             GridBoxAlignment -> {"Rows" -> {{Top}}}, AutoDelete -> False, 
+             GridBoxItemSize -> {
+              "Columns" -> {{Automatic}}, "Rows" -> {{Automatic}}}, 
+             BaselinePosition -> {1, 1}]}, 
+          Dynamic[Typeset`open$$], ImageSize -> Automatic]}, "SummaryPanel", 
+        DisplayFunction -> (
+         ButtonBox[#, Active -> False, Alignment -> Left, 
+          Appearance -> {
+           "Default" -> 
+            FrontEnd`FileName[{"Typeset", "SummaryBox"}, "Panel.9.png"]}, 
+          FrameMargins -> 7, BaseStyle -> {}, 
+          DefaultBaseStyle -> {"Panel", Background -> None}, BaselinePosition -> 
+          Baseline]& )], DynamicModuleValues :> {}], 
+      StyleBox["]", "NonInterpretableSummary"]}]},
+   "CopyTag",
+   DisplayFunction->(#& ),
+   InterpretationFunction->(
+    "EncryptedObject[<|Data -> ByteArray[<48>], InitializationVector -> \
+ByteArray[<16>], OriginalForm -> String|>]"& )],
+  False,
+  Editable->False,
+  SelectWithContents->True,
+  Selectable->False]], "Output",
+ CellChangeTimes->{3.70795958608943*^9, 3.707960190933692*^9, 
+  3.7079604802362003`*^9, 3.7079616869199195`*^9, 3.7079618678968377`*^9, 
+  3.708739632969102*^9, 3.7087397022972*^9, 
+  3.7200171399469833`*^9},ExpressionUUID->"004d7236-8b4b-4b32-9f90-\
+f0fc60ede6ce"]
+}, Open  ]],
+
+Cell["Decrypt \[OpenCurlyDoubleQuote]timestamp+method+requestPath+body\
+\[CloseCurlyDoubleQuote] using keyspec", "Text",
+ CellChangeTimes->{{3.720017174803977*^9, 
+  3.7200172044926753`*^9}},ExpressionUUID->"6ab35c9b-8b03-4c88-8815-\
+d7f76d83cf30"],
+
+Cell[CellGroupData[{
+
+Cell[BoxData[
+ RowBox[{"Decrypt", "[", 
+  RowBox[{"keyspec", ",", "enc"}], "]"}]], "Input",
+ CellChangeTimes->{{3.7079604289277096`*^9, 3.70796045184415*^9}, 
+   3.7079604830286045`*^9},ExpressionUUID->"ded6f12b-92c1-4148-8848-\
+c0101bd8765b"],
+
+Cell[BoxData["\<\"timestamp+method+requestPath+body\"\>"], "Output",
+ CellChangeTimes->{3.7079604530141525`*^9, 3.707960485353009*^9, 
+  3.707961869909241*^9, 3.708739636220107*^9, 3.7087397027372007`*^9, 
+  3.720017146161339*^9},ExpressionUUID->"400229ef-50e5-43b9-8ce7-\
+24819cbf2ea8"]
+}, Open  ]],
+
+Cell["\<\
+What does \[OpenCurlyDoubleQuote]timestamp+method+requestPath+body\
+\[CloseCurlyDoubleQuote] look like inside\
+\>", "Text",
+ CellChangeTimes->{{3.720017230503163*^9, 
+  3.720017238721633*^9}},ExpressionUUID->"e9e3975b-b8b6-4dbc-9088-\
+76b858309776"],
+
+Cell[CellGroupData[{
+
+Cell[BoxData[
+ RowBox[{"encArray", "=", 
+  RowBox[{"enc", "[", "\"\<Data\>\"", "]"}]}]], "Input",
+ CellChangeTimes->{{3.7079601951456995`*^9, 3.707960204396516*^9}, 
+   3.707961695546735*^9},ExpressionUUID->"5a94aea5-123e-493c-b46c-\
+7a36b291e789"],
+
+Cell[BoxData[
+ InterpretationBox[
+  RowBox[{
+   TagBox["ByteArray",
+    "SummaryHead"], "[", 
+   DynamicModuleBox[{Typeset`open$$ = False, Typeset`embedState$$ = "Ready"}, 
+    TemplateBox[{PaneSelectorBox[{False -> GridBox[{{
+            GridBox[{{
+               TagBox["\"48 bytes\"", "SummaryItem"]}}, 
+             GridBoxAlignment -> {
+              "Columns" -> {{Left}}, "Rows" -> {{Automatic}}}, AutoDelete -> 
+             False, GridBoxItemSize -> {
+              "Columns" -> {{Automatic}}, "Rows" -> {{Automatic}}}, 
+             GridBoxSpacings -> {"Columns" -> {{2}}, "Rows" -> {{Automatic}}},
+              BaseStyle -> {
+              ShowStringCharacters -> False, NumberMarks -> False, 
+               PrintPrecision -> 3, ShowSyntaxStyles -> False}]}}, 
+          GridBoxAlignment -> {"Rows" -> {{Top}}}, AutoDelete -> False, 
+          GridBoxItemSize -> {
+           "Columns" -> {{Automatic}}, "Rows" -> {{Automatic}}}, 
+          BaselinePosition -> {1, 1}], True -> GridBox[{{
+            GridBox[{{
+               TagBox["\"48 bytes\"", "SummaryItem"]}}, 
+             GridBoxAlignment -> {
+              "Columns" -> {{Left}}, "Rows" -> {{Automatic}}}, AutoDelete -> 
+             False, GridBoxItemSize -> {
+              "Columns" -> {{Automatic}}, "Rows" -> {{Automatic}}}, 
+             GridBoxSpacings -> {"Columns" -> {{2}}, "Rows" -> {{Automatic}}},
+              BaseStyle -> {
+              ShowStringCharacters -> False, NumberMarks -> False, 
+               PrintPrecision -> 3, ShowSyntaxStyles -> False}]}}, 
+          GridBoxAlignment -> {"Rows" -> {{Top}}}, AutoDelete -> False, 
+          GridBoxItemSize -> {
+           "Columns" -> {{Automatic}}, "Rows" -> {{Automatic}}}, 
+          BaselinePosition -> {1, 1}]}, 
+       Dynamic[Typeset`open$$], ImageSize -> Automatic]},
+     "SummaryPanel",
+     DisplayFunction->(
+      ButtonBox[#, Active -> False, Alignment -> Left, 
+       Appearance -> {
+        "Default" -> 
+         FrontEnd`FileName[{"Typeset", "SummaryBox"}, "Panel.9.png"]}, 
+       FrameMargins -> 7, BaseStyle -> {}, 
+       DefaultBaseStyle -> {"Panel", Background -> None}, BaselinePosition -> 
+       Baseline]& )],
+    DynamicModuleValues:>{}], "]"}],
+  ByteArray[{45, 45, 33, 165, 25, 173, 186, 169, 36, 231, 222, 157, 191, 247, 
+   15, 113, 24, 30, 52, 63, 180, 131, 124, 73, 195, 102, 70, 97, 145, 160, 80,
+    143, 24, 160, 6, 137, 224, 210, 237, 62, 62, 18, 173, 140, 113, 87, 123, 
+   252}],
+  Editable->False,
+  SelectWithContents->True,
+  Selectable->False]], "Output",
+ CellChangeTimes->{3.707960205270117*^9, 3.7079616961707363`*^9, 
+  3.7079618711260433`*^9, 3.7087396421921153`*^9, 3.708739702747201*^9, 
+  3.720017242902872*^9},ExpressionUUID->"6063ca72-121d-4c28-9ff5-\
+f528242aeb66"]
+}, Open  ]],
+
+Cell[CellGroupData[{
+
+Cell[BoxData[
+ RowBox[{"ExportString", "[", 
+  RowBox[{"encArray", ",", 
+   RowBox[{"{", 
+    RowBox[{"\"\<Base64\>\"", ",", "\"\<String\>\""}], "}"}]}], 
+  "]"}]], "Input",
+ CellChangeTimes->{{3.7087400434496837`*^9, 
+  3.7087400630357113`*^9}},ExpressionUUID->"445f6813-9814-405f-92c8-\
+691067bafef9"],
+
+Cell[BoxData["\<\"Qnl0ZUFycmF5Wzw0OD5d\\n\"\>"], "Output",
+ CellChangeTimes->{3.7087400639257126`*^9, 
+  3.7200172476121416`*^9},ExpressionUUID->"6ed41c96-82d3-4891-8d65-\
+b7f0cab28a26"]
+}, Open  ]],
+
+Cell["That should work. Decrypt can be passed a ByteArray.", "Text",
+ CellChangeTimes->{{3.7079617137519665`*^9, 3.7079617158891706`*^9}, {
+  3.7079617515976334`*^9, 
+  3.707961770395666*^9}},ExpressionUUID->"902f5623-f356-4f75-9ed2-\
+4d2276a3d1d7"],
+
+Cell[CellGroupData[{
+
+Cell[BoxData[
+ RowBox[{"Decrypt", "[", 
+  RowBox[{"keyspec", ",", "encArray"}], "]"}]], "Input",
+ CellChangeTimes->{{3.7079616466874495`*^9, 3.7079616562658663`*^9}, 
+   3.7079617028631477`*^9},ExpressionUUID->"29a0f805-5905-4455-9239-\
+4caf3da8db32"],
+
+Cell[BoxData[
+ TemplateBox[{
+  "Decrypt","ivlen","\"Initialization vector is not of suitable length.\"",2,
+   7,1,33446996418289201172,"Local"},
+  "MessageTemplate"]], "Message", "MSG",
+ CellChangeTimes->{3.707961657420268*^9, 3.70796170397075*^9, 
+  3.707961873341247*^9, 3.7087396537941313`*^9, 3.7087397031972017`*^9, 
+  3.720017260071854*^9},ExpressionUUID->"a3630e98-4dd3-44c8-b950-\
+583538d06110"],
+
+Cell[BoxData["$Failed"], "Output",
+ CellChangeTimes->{3.7079616574358683`*^9, 3.7079617039863496`*^9, 
+  3.707961873372447*^9, 3.7087396538141317`*^9, 3.7087397032172017`*^9, 
+  3.7200172600988555`*^9},ExpressionUUID->"08838882-69c4-4fea-9e56-\
+e9c901caaf99"]
+}, Open  ]],
+
+Cell["\<\
+Why is \[OpenCurlyDoubleQuote]InitializationVector\[CloseCurlyDoubleQuote] of \
+Encrypted \[OpenCurlyDoubleQuote]timestamp+method+requestPath+body\
+\[CloseCurlyDoubleQuote] 16 bytes\
+\>", "Text",
+ CellChangeTimes->{{3.720064598746872*^9, 
+  3.7200646266134653`*^9}},ExpressionUUID->"00c91a9f-4aa6-4879-8007-\
+e9b3edb12d9b"],
+
+Cell[CellGroupData[{
+
+Cell[BoxData[
+ RowBox[{"enc", "[", "\"\<InitializationVector\>\"", "]"}]], "Input",
+ CellChangeTimes->{{3.7200645274137917`*^9, 
+  3.720064530516969*^9}},ExpressionUUID->"fe7f7a2a-a61d-4b9d-84dc-\
+3af4e2f8f5bd"],
+
+Cell[BoxData[
+ InterpretationBox[
+  RowBox[{
+   TagBox["ByteArray",
+    "SummaryHead"], "[", 
+   DynamicModuleBox[{Typeset`open$$ = False, Typeset`embedState$$ = "Ready"}, 
+    TemplateBox[{PaneSelectorBox[{False -> GridBox[{{
+            GridBox[{{
+               TagBox["\"16 bytes\"", "SummaryItem"]}}, 
+             GridBoxAlignment -> {
+              "Columns" -> {{Left}}, "Rows" -> {{Automatic}}}, AutoDelete -> 
+             False, GridBoxItemSize -> {
+              "Columns" -> {{Automatic}}, "Rows" -> {{Automatic}}}, 
+             GridBoxSpacings -> {"Columns" -> {{2}}, "Rows" -> {{Automatic}}},
+              BaseStyle -> {
+              ShowStringCharacters -> False, NumberMarks -> False, 
+               PrintPrecision -> 3, ShowSyntaxStyles -> False}]}}, 
+          GridBoxAlignment -> {"Rows" -> {{Top}}}, AutoDelete -> False, 
+          GridBoxItemSize -> {
+           "Columns" -> {{Automatic}}, "Rows" -> {{Automatic}}}, 
+          BaselinePosition -> {1, 1}], True -> GridBox[{{
+            GridBox[{{
+               TagBox["\"16 bytes\"", "SummaryItem"]}}, 
+             GridBoxAlignment -> {
+              "Columns" -> {{Left}}, "Rows" -> {{Automatic}}}, AutoDelete -> 
+             False, GridBoxItemSize -> {
+              "Columns" -> {{Automatic}}, "Rows" -> {{Automatic}}}, 
+             GridBoxSpacings -> {"Columns" -> {{2}}, "Rows" -> {{Automatic}}},
+              BaseStyle -> {
+              ShowStringCharacters -> False, NumberMarks -> False, 
+               PrintPrecision -> 3, ShowSyntaxStyles -> False}]}}, 
+          GridBoxAlignment -> {"Rows" -> {{Top}}}, AutoDelete -> False, 
+          GridBoxItemSize -> {
+           "Columns" -> {{Automatic}}, "Rows" -> {{Automatic}}}, 
+          BaselinePosition -> {1, 1}]}, 
+       Dynamic[Typeset`open$$], ImageSize -> Automatic]},
+     "SummaryPanel",
+     DisplayFunction->(
+      ButtonBox[#, Active -> False, Alignment -> Left, 
+       Appearance -> {
+        "Default" -> 
+         FrontEnd`FileName[{"Typeset", "SummaryBox"}, "Panel.9.png"]}, 
+       FrameMargins -> 7, BaseStyle -> {}, 
+       DefaultBaseStyle -> {"Panel", Background -> None}, BaselinePosition -> 
+       Baseline]& )],
+    DynamicModuleValues:>{}], "]"}],
+  ByteArray[{90, 129, 35, 112, 81, 69, 158, 189, 106, 58, 133, 142, 90, 122, 
+   110, 106}],
+  Editable->False,
+  SelectWithContents->True,
+  Selectable->False]], "Output",
+ CellChangeTimes->{
+  3.7200645316300325`*^9},ExpressionUUID->"9b531d43-5a02-4afe-98b3-\
+e36db6b734d8"]
+}, Open  ]],
+
+Cell["\<\
+Extract the bytes in the initialization vector used for encryption:\
+\>", "Text",
+ CellChangeTimes->{
+  3.7200646732411327`*^9},ExpressionUUID->"bdd1f349-4bd9-458e-b676-\
+1a550c6be069"],
+
+Cell[CellGroupData[{
+
+Cell[BoxData[
+ RowBox[{
+  RowBox[{"enc", "[", "\"\<InitializationVector\>\"", "]"}], "//", 
+  "Normal"}]], "Input",
+ CellChangeTimes->{{3.72006467896546*^9, 
+  3.720064681152585*^9}},ExpressionUUID->"fc2289f8-a814-400b-a15d-\
+35f037819a06"],
+
+Cell[BoxData[
+ RowBox[{"{", 
+  RowBox[{
+  "90", ",", "129", ",", "35", ",", "112", ",", "81", ",", "69", ",", "158", 
+   ",", "189", ",", "106", ",", "58", ",", "133", ",", "142", ",", "90", ",", 
+   "122", ",", "110", ",", "106"}], "}"}]], "Output",
+ CellChangeTimes->{
+  3.720064682488662*^9},ExpressionUUID->"81990566-7135-4b6f-b537-\
+ce4c03470826"]
+}, Open  ]],
+
+Cell[CellGroupData[{
+
+Cell[BoxData[
+ RowBox[{"encBytes", "=", 
+  RowBox[{"Normal", "[", "encArray", "]"}]}]], "Input",
+ CellChangeTimes->{{3.707960234785369*^9, 3.7079602488877935`*^9}, 
+   3.708739679551168*^9},ExpressionUUID->"4a356866-1ee4-449c-aebf-\
+2bfa7b0f376b"],
+
+Cell[BoxData[
+ RowBox[{"{", 
+  RowBox[{
+  "45", ",", "45", ",", "33", ",", "165", ",", "25", ",", "173", ",", "186", 
+   ",", "169", ",", "36", ",", "231", ",", "222", ",", "157", ",", "191", ",",
+    "247", ",", "15", ",", "113", ",", "24", ",", "30", ",", "52", ",", "63", 
+   ",", "180", ",", "131", ",", "124", ",", "73", ",", "195", ",", "102", ",",
+    "70", ",", "97", ",", "145", ",", "160", ",", "80", ",", "143", ",", "24",
+    ",", "160", ",", "6", ",", "137", ",", "224", ",", "210", ",", "237", ",",
+    "62", ",", "62", ",", "18", ",", "173", ",", "140", ",", "113", ",", "87",
+    ",", "123", ",", "252"}], "}"}]], "Output",
+ CellChangeTimes->{3.7087397032772017`*^9, 
+  3.7200632778019176`*^9},ExpressionUUID->"ed8b2ff3-034f-4897-8660-\
+39b8b6afbcc3"]
+}, Open  ]],
+
+Cell["\<\
+If the keyspec is the same and the message was the same, why is the encoded \
+ByteArray different every time?\
+\>", "Text",
+ CellChangeTimes->{{3.708739692824187*^9, 3.7087396933141875`*^9}, {
+  3.708739764431288*^9, 
+  3.7087398038243437`*^9}},ExpressionUUID->"e960c51d-139c-4792-9117-\
+3bb9b587d652"],
+
+Cell[BoxData[
+ RowBox[{"{", 
+  RowBox[{
+  "163", ",", "248", ",", "113", ",", "103", ",", "177", ",", "129", ",", 
+   "10", ",", "199", ",", "140", ",", "86", ",", "189", ",", "70", ",", "139",
+    ",", "47", ",", "173", ",", "177", ",", "30", ",", "182", ",", "229", ",",
+    "98", ",", "170", ",", "225", ",", "105", ",", "73", ",", "230", ",", "0",
+    ",", "218", ",", "114", ",", "184", ",", "218", ",", "186", ",", "99", 
+   ",", "159", ",", "174", ",", "106", ",", "18", ",", "206", ",", "194", ",",
+    "27", ",", "101", ",", "141", ",", "191", ",", "203", ",", "151", ",", 
+   "148", ",", "219", ",", "255", ",", "83"}], "}"}]], "Output",
+ CellChangeTimes->{
+  3.707960249636595*^9, {3.7087396819311714`*^9, 
+   3.708739688634181*^9}},ExpressionUUID->"59bff877-f778-4cec-bb8f-\
+1896ade04ac0"],
+
+Cell[CellGroupData[{
+
+Cell[BoxData[
+ RowBox[{"FromCharacterCode", "[", "encBytes", "]"}]], "Input",
+ CellChangeTimes->{{3.7079602922090693`*^9, 
+  3.7079603004302845`*^9}},ExpressionUUID->"b9cf85ca-21bb-4928-8a9a-\
+045e55da9952"],
+
+Cell[BoxData["\<\"--!\[Yen]\.19\[DiscretionaryHyphen]\.ba\[Copyright]$\
+\[CCedilla]\[CapitalThorn]\.9d\[DownQuestion]\[Divide]\.0fq\.18\.1e4?\.b4\.83|\
+I\[CapitalATilde]fFa\.91\[NonBreakingSpace]P\.8f\.18\[NonBreakingSpace]\.06\
+\.89\[AGrave]\[CapitalOGrave]\[IAcute]>>\.12\[DiscretionaryHyphen]\.8cqW{\
+\[UDoubleDot]\"\>"], "Output",
+ CellChangeTimes->{
+  3.7200632968930097`*^9},ExpressionUUID->"217ea112-0e9c-4dda-869a-\
+5f7fcf59742b"]
+}, Open  ]],
+
+Cell["was", "Text",
+ CellChangeTimes->{{3.7200632921337376`*^9, 
+  3.720063294524874*^9}},ExpressionUUID->"a194eff6-1e3f-4c90-938f-\
+4b732cd6240e"],
+
+Cell[BoxData["\<\"e\[OHat]\[Yen]\[CapitalARing]+\.89\\\\\[ADoubleDot]\
+\[RightGuillemet]\.aaF\[OHat]\[Paragraph]`\.9d\[CCedilla]\[CapitalODoubleDot]\
+\[CapitalEth]z\[CapitalOAcute]\[CapitalIHat]\[Divide]\[CapitalOTilde]\.85wW\
+\.15\[Eth]z\.b4\.af\[OHat]/\[LeftGuillemet]\.8flT\[AAcute]Qk\.90l\.92\
+\[CapitalYAcute]\[NTilde]\[CapitalADoubleDot]\.9c\[Times]\"\>"], "Output",
+ CellChangeTimes->{
+  3.7087398154283605`*^9},ExpressionUUID->"2f971dc5-c232-413f-899c-\
+12700eab510b"],
+
+Cell["was", "Text",
+ CellChangeTimes->{{3.708739812527356*^9, 
+  3.708739812807357*^9}},ExpressionUUID->"4d4536f3-51a3-428c-9906-\
+5c8832ffc5db"],
+
+Cell[BoxData["\<\"n\[CapitalIHat]#\.81\.10.\[DiscretionaryHyphen]\.80N\
+\[UDoubleDot]&\[OGrave]\[RawEscape]\[CapitalOAcute]H0<\.945\.ba\.0e\
+\[CapitalOAcute]7d\.94\[CapitalEth]z\.7fTN\.85m\[LeftGuillemet]\.0b\
+\[PlusMinus]\[CapitalUDoubleDot]f\.07\[OHat]9\[YDoubleDot]\[Divide]\
+\[ADoubleDot]\[ARing]\[OSlash]{^U\"\>"], "Output",
+ CellChangeTimes->{
+  3.707960301491086*^9},ExpressionUUID->"a07d1b13-301e-4836-a41f-\
+c3ca2a2418e8"],
+
+Cell[CellGroupData[{
+
+Cell[BoxData[
+ RowBox[{"ExportString", "[", 
+  RowBox[{
+   RowBox[{"FromCharacterCode", "[", "encBytes", "]"}], ",", 
+   RowBox[{"{", 
+    RowBox[{"\"\<Base64\>\"", ",", "\"\<String\>\""}], "}"}]}], 
+  "]"}]], "Input",
+ CellChangeTimes->{{3.7079603689612045`*^9, 
+  3.707960379038822*^9}},ExpressionUUID->"40760df0-e5e0-437b-ae01-\
+c1d69e018c09"],
+
+Cell[BoxData["\<\"LS0hpRmtuqkk596dv/cPcRgeND+\
+0g3xJw2ZGYZGgUI8YoAaJ4NLtPj4SrYxxV3v8\\n\"\>"], "Output",
+ CellChangeTimes->{
+  3.7200633204233556`*^9},ExpressionUUID->"a2b6f62a-934e-4fc3-ad0c-\
+45a2a1d9dd85"]
+}, Open  ]],
+
+Cell["was", "Text",
+ CellChangeTimes->{{3.7200633172421737`*^9, 
+  3.7200633180382195`*^9}},ExpressionUUID->"e8ccc4f1-0485-42e9-b72f-\
+2c8f54ac9cb5"],
+
+Cell[BoxData["\<\"ZfSlxSuJXOS7qkb0tmCd59bQetPO99WFd1cV8Hq0r/\
+Qvq49sVOFRa5Bskt3xxJzX\\n\"\>"], "Output",
+ CellChangeTimes->{
+  3.7087398262313757`*^9},ExpressionUUID->"8726ea5d-3d88-469e-85dd-\
+655662fcfc53"],
+
+Cell["was", "Text",
+ CellChangeTimes->{{3.7087398219383698`*^9, 
+  3.7087398235093718`*^9}},ExpressionUUID->"e199fc08-6288-4900-83b5-\
+aab2b41d7c23"],
+
+Cell[BoxData["\<\"bs4jgRAurYBO/CbyG9NIMDyUNboO0zdklNB6f1ROhW2rC7HcZgf0Of/\
+35OX4e15V\\n\"\>"], "Output",
+ CellChangeTimes->{
+  3.707960379662823*^9},ExpressionUUID->"5d8fa2bf-cea6-46ec-bd1f-\
+f46ed346379c"],
+
+Cell["\<\
+Well, well well. Base64 of FromCharacterCode of the raw bytes, undoes Normal \
+on the ByteArray\
+\>", "Text",
+ CellChangeTimes->{{3.7079605601083403`*^9, 3.7079605641331472`*^9}, {
+  3.7087398762874465`*^9, 
+  3.708739945638545*^9}},ExpressionUUID->"7e5a0ca6-6005-4582-a64b-\
+326629e6f23b"],
+
+Cell[CellGroupData[{
+
+Cell[BoxData[
+ RowBox[{"InputForm", "[", "encArray", "]"}]], "Input",
+ CellChangeTimes->{{3.707960541481908*^9, 3.7079605451323137`*^9}, 
+   3.708739834144387*^9},ExpressionUUID->"75d6ae3f-dbea-40cd-ab99-\
+fa7beac3b5c7"],
+
+Cell["\<\
+ByteArray[\"LS0hpRmtuqkk596dv/cPcRgeND+0g3xJw2ZGYZGgUI8YoAaJ4NLtPj4SrYxxV3v8\"\
+]\
+\>", "Output",
+ CellChangeTimes->{
+  3.7200633552943497`*^9},ExpressionUUID->"6d94edda-7ffb-4714-b9ab-\
+022c3a8dafd4"]
+}, Open  ]],
+
+Cell["was", "Text",
+ CellChangeTimes->{{3.7200633526531987`*^9, 
+  3.720063353000219*^9}},ExpressionUUID->"d57a40c7-03c6-4c0d-9915-\
+2afa59f2bdb9"],
+
+Cell["\<\
+ByteArray[\"ZfSlxSuJXOS7qkb0tmCd59bQetPO99WFd1cV8Hq0r/Qvq49sVOFRa5Bskt3xxJzX\"\
+]\
+\>", "Output",
+ CellChangeTimes->{3.707960545927915*^9, 
+  3.7087398361143894`*^9},ExpressionUUID->"cf40834c-edcc-41ee-81e4-\
+17838ea2bd4d"],
+
+Cell[CellGroupData[{
+
+Cell[BoxData[
+ RowBox[{"ExportString", "[", "\[IndentingNewLine]", 
+  RowBox[{
+   RowBox[{"Encrypt", "[", "\[IndentingNewLine]", 
+    RowBox[{
+     RowBox[{"IntegerString", "[", "\[IndentingNewLine]", 
+      RowBox[{
+       RowBox[{"Hash", "[", "\[IndentingNewLine]", 
+        RowBox[{
+         RowBox[{"ImportString", "[", 
+          RowBox[{"\"\<secret\>\"", ",", 
+           RowBox[{"{", 
+            RowBox[{"\"\<Base64\>\"", ",", "\"\<String\>\""}], "}"}]}], "]"}],
+          ",", "\[IndentingNewLine]", "\"\<SHA256\>\""}], "]"}], ",", 
+       "\[IndentingNewLine]", "16"}], "]"}], ",", 
+     "\"\<timestamp+method+requestPath+body\>\""}], "]"}], ",", 
+   "\[IndentingNewLine]", 
+   RowBox[{"{", 
+    RowBox[{"\"\<Base64\>\"", ",", "\"\<String\>\""}], "}"}]}], 
+  "]"}]], "Input",
+ CellChangeTimes->{
+  3.7079596374603195`*^9},ExpressionUUID->"e8f6c764-b02b-49ff-96d6-\
+681b0479b839"],
+
+Cell[BoxData["\<\"\
+RW5jcnlwdGVkT2JqZWN0Wzx8RGF0YSAtPiBCeXRlQXJyYXlbPDQ4Pl0sIEluaXRpYWxpemF0aW9u\\\
+nVmVjdG9yIC0+IEJ5dGVBcnJheVs8MTY+XSwgT3JpZ2luYWxGb3JtIC0+IFN0cmluZ3w+XQ==\\n\"\
+\>"], "Output",
+ CellChangeTimes->{
+  3.7200633834569607`*^9},ExpressionUUID->"613e5fc0-9c50-4eb8-9204-\
+c5244d20df07"]
+}, Open  ]],
+
+Cell["was", "Text",
+ CellChangeTimes->{{3.7200633799857626`*^9, 
+  3.720063380347783*^9}},ExpressionUUID->"7700d31d-8fef-454f-81b5-\
+6ad9052b570b"],
+
+Cell[BoxData["\<\"\
+RW5jcnlwdGVkT2JqZWN0Wzx8RGF0YSAtPiBCeXRlQXJyYXlbPDQ4Pl0sIEluaXRpYWxpemF0aW9u\\\
+nVmVjdG9yIC0+IEJ5dGVBcnJheVs8MTY+XSwgT3JpZ2luYWxGb3JtIC0+IFN0cmluZ3w+XQ==\\n\"\
+\>"], "Output",
+ CellChangeTimes->{
+  3.707959638973522*^9},ExpressionUUID->"318d5861-13a0-484f-a691-\
+664cf4952a8a"],
+
+Cell["\<\
+generateSignature[requestPath_String, method_String, body_String, \
+timestamp_String] := 
+Module[{prehash, secretDecoded, keyspec, sha256},
+  prehash = StringJoin[timestamp, ToUpperCase[method], requestPath, body];
+  secretDecoded = ImportString[\"secretKey\", {\"Base64\", \"String\"}];
+  keyspec = IntegerString[Hash[secretDecoded, \"SHA256\"], 16];
+  ExportString[keyspec <> prehash, {\"Base64\", \"String\"}]
+  ]\
+\>", "Text",
+ CellChangeTimes->{{3.7058676565457077`*^9, 3.7058679116082115`*^9}, {
+   3.7058679979078407`*^9, 3.7058680382718763`*^9}, {3.7058681758146296`*^9, 
+   3.7058682043754854`*^9}, 3.707960743830863*^9, 
+   3.7200633946085987`*^9},ExpressionUUID->"0a775cd4-ab40-4afc-9bc9-\
+9a7adff5eb20"],
+
+Cell[BoxData[
+ RowBox[{
+  RowBox[{"generateSignature", "[", 
+   RowBox[{
+   "requestPath_String", ",", "method_String", ",", "body_String", ",", 
+    "timestamp_String"}], "]"}], ":=", 
+  RowBox[{"Module", "[", 
+   RowBox[{
+    RowBox[{"{", 
+     RowBox[{
+     "prehash", ",", "secretDecoded", ",", "keyspec", ",", "sha256", ",", 
+      "sha256Array", ",", "sha256Bytes", ",", "sha256Char"}], "}"}], ",", 
+    "\[IndentingNewLine]", 
+    RowBox[{
+     RowBox[{"prehash", "=", 
+      RowBox[{"StringJoin", "[", 
+       RowBox[{"timestamp", ",", 
+        RowBox[{"ToUpperCase", "[", "method", "]"}], ",", "requestPath", ",", 
+        "body"}], "]"}]}], ";", "\[IndentingNewLine]", 
+     RowBox[{"secretDecoded", "=", 
+      RowBox[{"ImportString", "[", 
+       RowBox[{"\"\<secretKey\>\"", ",", 
+        RowBox[{"{", 
+         RowBox[{"\"\<Base64\>\"", ",", "\"\<String\>\""}], "}"}]}], "]"}]}], 
+     ";", "\[IndentingNewLine]", 
+     RowBox[{"keyspec", "=", 
+      RowBox[{"IntegerString", "[", 
+       RowBox[{
+        RowBox[{"Hash", "[", 
+         RowBox[{"secretDecoded", ",", "\"\<SHA256\>\""}], "]"}], ",", "16"}],
+        "]"}]}], ";", "\[IndentingNewLine]", 
+     RowBox[{"sha256", "=", 
+      RowBox[{"Encrypt", "[", 
+       RowBox[{"keyspec", ",", "prehash"}], "]"}]}], ";", 
+     "\[IndentingNewLine]", 
+     RowBox[{"sha256Array", "=", 
+      RowBox[{"sha256", "[", "\"\<Data\>\"", "]"}]}], ";", 
+     "\[IndentingNewLine]", 
+     RowBox[{"sha256Bytes", "=", 
+      RowBox[{"Normal", "[", "sha256Array", "]"}]}], ";", 
+     "\[IndentingNewLine]", 
+     RowBox[{"sha256Char", "=", 
+      RowBox[{"FromCharacterCode", "[", "sha256Bytes", "]"}]}], ";", 
+     "\[IndentingNewLine]", 
+     RowBox[{"ExportString", "[", 
+      RowBox[{"sha256Char", ",", 
+       RowBox[{"{", 
+        RowBox[{"\"\<Base64\>\"", ",", "\"\<String\>\""}], "}"}]}], "]"}]}]}],
+    "\[IndentingNewLine]", "]"}]}]], "Input",
+ CellChangeTimes->{{3.7058676565457077`*^9, 3.7058679116082115`*^9}, {
+  3.7058679979078407`*^9, 3.7058680382718763`*^9}, {3.7058681758146296`*^9, 
+  3.7058682043754854`*^9}, {3.7079596605171604`*^9, 3.707959747378113*^9}, {
+  3.7079607472472687`*^9, 
+  3.707960864606275*^9}},ExpressionUUID->"21a06b0d-8264-4dfd-bb86-\
+0e242a00827a"],
+
+Cell["\<\
+dumps the prehash right into the hmac, no SHA256 on the command string\
+\>", "Text",
+ CellChangeTimes->{{3.7079614860695667`*^9, 3.707961494056781*^9}, {
+  3.707961547642875*^9, 
+  3.707961564584505*^9}},ExpressionUUID->"59d37957-cdcc-4009-85e6-\
+daba511595c4"],
+
+Cell[CellGroupData[{
+
+Cell[BoxData[
+ RowBox[{"Hash", "[", 
+  RowBox[{
+   RowBox[{"StringJoin", "[", 
+    RowBox[{"\"\<timestamp\>\"", ",", 
+     RowBox[{"ToUpperCase", "[", "\"\<method\>\"", "]"}], ",", 
+     "\"\<requestPath\>\"", ",", "\"\<body\>\""}], "]"}], ",", 
+   "\"\<SHA256\>\""}], "]"}]], "Input",
+ CellChangeTimes->{{3.7079612645949783`*^9, 
+  3.7079612876986184`*^9}},ExpressionUUID->"94520244-ab35-4317-8498-\
+c40fe89eedc0"],
+
+Cell[BoxData[\
+"32691329839063701091165041631290066935370523794252498029871125819844897560623\
+"], "Output",
+ CellChangeTimes->{3.7079612883226194`*^9, 
+  3.7200634617744403`*^9},ExpressionUUID->"50d4fcc8-d020-4802-923f-\
+57e5484f5ef7"]
+}, Open  ]],
+
+Cell[CellGroupData[{
+
+Cell[BoxData[
+ RowBox[{"Hash", "[", 
+  RowBox[{
+   RowBox[{"ImportString", "[", 
+    RowBox[{"\"\<secretKey\>\"", ",", 
+     RowBox[{"{", 
+      RowBox[{"\"\<Base64\>\"", ",", "\"\<String\>\""}], "}"}]}], "]"}], ",", 
+   "\"\<SHA256\>\""}], "]"}]], "Input",
+ CellChangeTimes->{
+  3.708740650943545*^9},ExpressionUUID->"be5eb398-cbe8-49d2-bc00-\
+0ca9a396b2a0"],
+
+Cell[BoxData[\
+"59371220447773695968488275860805711218375208268212927843669291814414896448283\
+"], "Output",
+ CellChangeTimes->{3.708740652553547*^9, 
+  3.7200634636325464`*^9},ExpressionUUID->"b8a81460-c26d-49ce-807f-\
+a71665db0524"]
+}, Open  ]],
+
+Cell[CellGroupData[{
+
+Cell[BoxData[
+ RowBox[{"IntegerString", "[", 
+  RowBox[{
+   RowBox[{"Hash", "[", 
+    RowBox[{
+     RowBox[{"ImportString", "[", 
+      RowBox[{"\"\<secretKey\>\"", ",", 
+       RowBox[{"{", 
+        RowBox[{"\"\<Base64\>\"", ",", "\"\<String\>\""}], "}"}]}], "]"}], 
+     ",", "\"\<SHA256\>\""}], "]"}], ",", "16"}], "]"}]], "Input",
+ CellChangeTimes->{
+  3.70874066904757*^9},ExpressionUUID->"9034c542-6dbf-4045-84bb-e6ca7a32d46c"],
+
+Cell[BoxData["\<\"\
+8342eb809646487a6d238680da47a615f5177703d8c9e6b6d81dbb6fb471c31b\"\>"], \
+"Output",
+ CellChangeTimes->{3.7087406696875715`*^9, 
+  3.720063465337644*^9},ExpressionUUID->"b2282b35-3428-4f36-ac14-\
+05c632c0bd0c"]
+}, Open  ]],
+
+Cell[CellGroupData[{
+
+Cell[BoxData[
+ RowBox[{"FromCharacterCode", "@", 
+  RowBox[{"Normal", "@", 
+   RowBox[{
+    RowBox[{"Encrypt", "[", "\[IndentingNewLine]", 
+     RowBox[{
+      RowBox[{"IntegerString", "[", 
+       RowBox[{
+        RowBox[{"Hash", "[", 
+         RowBox[{
+          RowBox[{"ImportString", "[", 
+           RowBox[{"\"\<secretKey\>\"", ",", 
+            RowBox[{"{", 
+             RowBox[{"\"\<Base64\>\"", ",", "\"\<String\>\""}], "}"}]}], 
+           "]"}], ",", "\"\<SHA256\>\""}], "]"}], ",", "16"}], "]"}], ",", 
+      RowBox[{"StringJoin", "[", 
+       RowBox[{"\"\<timestamp\>\"", ",", 
+        RowBox[{"ToUpperCase", "[", "\"\<method\>\"", "]"}], ",", 
+        "\"\<requestPath\>\"", ",", "\"\<body\>\""}], "]"}]}], "]"}], "[", 
+    "\"\<Data\>\"", "]"}]}]}]], "Input",
+ CellChangeTimes->{{3.7087410619501266`*^9, 
+  3.7087411097551947`*^9}},ExpressionUUID->"1537d58a-37ea-499c-b0b2-\
+a95cc9c9253a"],
+
+Cell[BoxData["\<\"T\.8eW\.92c4\[RightGuillemet]A%\[IDoubleDot]B6\.1a\[Micro]\
+YM\[CapitalADoubleDot]\[EHat]P^Mq\.b3\.0b}\.08J\.94b\[CapitalIDoubleDot]\.03\
+\.87\"\>"], "Output",
+ CellChangeTimes->{{3.7087410887081647`*^9, 3.708741110935196*^9}, 
+   3.7200634688778467`*^9},ExpressionUUID->"bf88c252-ac69-4be7-8b46-\
+7d7b1b5ab20e"]
+}, Open  ]],
+
+Cell[CellGroupData[{
+
+Cell[BoxData[
+ RowBox[{"Column", "[", 
+  RowBox[{
+   RowBox[{"Table", "[", 
+    RowBox[{
+     RowBox[{"ExportString", "[", 
+      RowBox[{
+       RowBox[{"FromCharacterCode", "@", 
+        RowBox[{"Normal", "[", 
+         RowBox[{
+          RowBox[{"Encrypt", "[", 
+           RowBox[{"keyspec", ",", 
+            RowBox[{"StringJoin", "[", 
+             RowBox[{"\"\<timestamp\>\"", ",", 
+              RowBox[{"ToUpperCase", "[", "\"\<method\>\"", "]"}], ",", 
+              "\"\<requestPath\>\"", ",", "\"\<body\>\""}], "]"}]}], "]"}], 
+          "[", "\"\<Data\>\"", "]"}], "]"}]}], ",", 
+       RowBox[{"{", 
+        RowBox[{"\"\<Base64\>\"", ",", "\"\<String\>\""}], "}"}]}], "]"}], 
+     ",", "3"}], "]"}], ",", 
+   RowBox[{"Dividers", "\[Rule]", "All"}]}], "]"}]], "Input",
+ CellChangeTimes->{{3.708740820949785*^9, 3.7087409628899865`*^9}, {
+  3.708741189388307*^9, 
+  3.7087412079433336`*^9}},ExpressionUUID->"83ac328d-d8c6-4de7-a96d-\
+dddf8532a129"],
+
+Cell[BoxData[
+ TagBox[GridBox[{
+    {"\<\"v4koesCGNUmR8JUTLTVXXE5MbRXwIHKV5jYOdr32dPg=\\n\"\>"},
+    {"\<\"CIZ95oLWJANOJzw6ZmA7MLnpp9vd1yJnkC/VO67aeGw=\\n\"\>"},
+    {"\<\"WE7bf/+GlmhiROrGQbJkbQJQl5i2rWkigOHCthcsn/0=\\n\"\>"}
+   },
+   DefaultBaseStyle->"Column",
+   GridBoxAlignment->{"Columns" -> {{Left}}},
+   GridBoxDividers->{"Columns" -> {{True}}, "Rows" -> {{True}}},
+   GridBoxItemSize->{"Columns" -> {{Automatic}}, "Rows" -> {{Automatic}}}],
+  "Column"]], "Output",
+ CellChangeTimes->{{3.7087408253407917`*^9, 3.7087408316218004`*^9}, {
+   3.7087408626588445`*^9, 3.70874090894491*^9}, 3.7087409647999887`*^9, 
+   3.708741211184338*^9, 
+   3.720063497817502*^9},ExpressionUUID->"4c6350ed-f270-4217-9c68-\
+4ea320ed6d1c"]
+}, Open  ]],
+
+Cell["Why would it change every time?", "Text",
+ CellChangeTimes->{{3.707960977067873*^9, 
+  3.707960982465482*^9}},ExpressionUUID->"3c8bfe1f-94a5-4efa-83df-\
+5b5e6d7824bb"],
+
+Cell[CellGroupData[{
+
+Cell[BoxData[
+ RowBox[{"generateSignature", "[", 
+  RowBox[{
+  "\"\<requestPath\>\"", ",", "\"\<method\>\"", ",", "\"\<body\>\"", ",", 
+   "\"\<timestamp\>\""}], "]"}]], "Input",
+ CellChangeTimes->{{3.70795979116739*^9, 
+  3.7079598301674585`*^9}},ExpressionUUID->"b6d228fb-b879-4d6e-a86d-\
+2ab69ad8c7a2"],
+
+Cell[BoxData["\<\"0aeoFz5SOXjQPeH6culQsLjTj/spSNeTea5r8FYPQ40=\\n\"\>"], \
+"Output",
+ CellChangeTimes->{
+  3.7200635149334807`*^9},ExpressionUUID->"cece2606-db40-42d2-b4d9-\
+cae226e32453"]
+}, Open  ]],
+
+Cell["was", "Text",
+ CellChangeTimes->{{3.720063511322274*^9, 
+  3.7200635116612935`*^9}},ExpressionUUID->"b534faac-006a-4c46-ac69-\
+b1305db6ed89"],
+
+Cell[BoxData["\<\"6gzRjBstyGWc3EQbDtmew1jAik53L+77BObjJhVAsSk=\\n\"\>"], \
+"Output",
+ CellChangeTimes->{
+  3.707959838544673*^9, 3.707960876307296*^9, {3.707960963308648*^9, 
+   3.707960966896655*^9}, 3.7079610111237326`*^9, 3.7087407347376633`*^9, 
+   3.7087409964490337`*^9},ExpressionUUID->"457a6d34-0efa-4283-8b28-\
+ce14772358cf"],
+
+Cell["That does not look right.", "Text",
+ CellChangeTimes->{{3.7079599777749176`*^9, 
+  3.7079599887261367`*^9}},ExpressionUUID->"84a598b1-665a-44a7-90c4-\
+e0f295671be3"],
+
+Cell[CellGroupData[{
+
+Cell[BoxData[
+ RowBox[{"encode256Char", "=", 
+  RowBox[{"generateSignature", "[", 
+   RowBox[{
+   "\"\<requestPath\>\"", ",", "\"\<method\>\"", ",", "\"\<body\>\"", ",", 
+    "\"\<timestamp\>\""}], "]"}]}]], "Input",
+ CellChangeTimes->{{3.7087413805195775`*^9, 
+  3.708741387431587*^9}},ExpressionUUID->"8e8471d5-11ac-401e-b3d6-\
+a6da0abe1451"],
+
+Cell[BoxData["\<\"LPhJ2lgi7K0uD5Z93lAmUALp5ltv3Hc9SRc1UY+PhGU=\\n\"\>"], \
+"Output",
+ CellChangeTimes->{3.708741390121591*^9, 
+  3.7200635229669404`*^9},ExpressionUUID->"a63b2d48-c9be-4c61-ab8d-\
+8ac3edd7b282"]
+}, Open  ]],
+
+Cell[CellGroupData[{
+
+Cell[BoxData[
+ RowBox[{"decode256Char", "=", 
+  RowBox[{"ImportString", "[", 
+   RowBox[{"encode256Char", ",", 
+    RowBox[{"{", 
+     RowBox[{"\"\<Base64\>\"", ",", "\"\<String\>\""}], "}"}]}], 
+   "]"}]}]], "Input",
+ CellChangeTimes->{{3.7079599589456844`*^9, 3.707959962876891*^9}, {
+   3.7079608962909307`*^9, 3.7079609375842037`*^9}, 
+   3.7087413967636003`*^9},ExpressionUUID->"fb7379eb-8b02-4350-b698-\
+c8b5fa5bac24"],
+
+Cell[BoxData["\<\",\[OSlash]I\[CapitalUAcute]X\\\"\[IGrave]\
+\[DiscretionaryHyphen].\.0f\.96}\[CapitalThorn]P&P\.02\[EAcute]\[AE][o\
+\[CapitalUDoubleDot]w=I\.175Q\.8f\.8f\.84e\"\>"], "Output",
+ CellChangeTimes->{
+  3.7079599640936937`*^9, 3.7079608976637335`*^9, {3.7079609387854056`*^9, 
+   3.707960949471424*^9}, {3.707961014572339*^9, 3.707961020188349*^9}, 
+   3.708740183325882*^9, 3.708740752250688*^9, 3.708741008463051*^9, 
+   3.7087412449943857`*^9, 3.708741397493602*^9, 
+   3.7200635249370527`*^9},ExpressionUUID->"0a2e1185-0825-4c41-8a15-\
+ecc494c137c9"]
+}, Open  ]],
+
+Cell[CellGroupData[{
+
+Cell[BoxData[
+ RowBox[{"ToCharacterCode", "[", "decode256Char", "]"}]], "Input",
+ CellChangeTimes->{{3.707960909098553*^9, 3.7079609120469584`*^9}, 
+   3.707961025539158*^9, {3.7087415048547535`*^9, 
+   3.7087415162387695`*^9}},ExpressionUUID->"fc3b14d9-ba50-47e4-8e7f-\
+8f7b4006adce"],
+
+Cell[BoxData[
+ RowBox[{"{", 
+  RowBox[{
+  "44", ",", "248", ",", "73", ",", "218", ",", "88", ",", "34", ",", "236", 
+   ",", "173", ",", "46", ",", "15", ",", "150", ",", "125", ",", "222", ",", 
+   "80", ",", "38", ",", "80", ",", "2", ",", "233", ",", "230", ",", "91", 
+   ",", "111", ",", "220", ",", "119", ",", "61", ",", "73", ",", "23", ",", 
+   "53", ",", "81", ",", "143", ",", "143", ",", "132", ",", "101"}], 
+  "}"}]], "Output",
+ CellChangeTimes->{
+  3.7079610260227585`*^9, 3.7087401865558863`*^9, 3.7087407653137064`*^9, 
+   3.708741008503051*^9, 3.708741245024386*^9, 3.7087414017746077`*^9, {
+   3.708741511797764*^9, 3.70874151655877*^9}, 
+   3.7200635273921933`*^9},ExpressionUUID->"f05af72e-e0d6-4cff-bb47-\
+d59d7575f5c0"]
+}, Open  ]],
+
+Cell[CellGroupData[{
+
+Cell[BoxData[
+ RowBox[{"ByteArray", "[", 
+  RowBox[{"ToCharacterCode", "[", "decode256Char", "]"}], "]"}]], "Input",
+ CellChangeTimes->{
+  3.707961124038731*^9},ExpressionUUID->"8113e6bc-98c9-487a-930a-\
+9fabc5796daf"],
+
+Cell[BoxData[
+ InterpretationBox[
+  RowBox[{
+   TagBox["ByteArray",
+    "SummaryHead"], "[", 
+   DynamicModuleBox[{Typeset`open$$ = False, Typeset`embedState$$ = "Ready"}, 
+    TemplateBox[{PaneSelectorBox[{False -> GridBox[{{
+            GridBox[{{
+               TagBox["\"32 bytes\"", "SummaryItem"]}}, 
+             GridBoxAlignment -> {
+              "Columns" -> {{Left}}, "Rows" -> {{Automatic}}}, AutoDelete -> 
+             False, GridBoxItemSize -> {
+              "Columns" -> {{Automatic}}, "Rows" -> {{Automatic}}}, 
+             GridBoxSpacings -> {"Columns" -> {{2}}, "Rows" -> {{Automatic}}},
+              BaseStyle -> {
+              ShowStringCharacters -> False, NumberMarks -> False, 
+               PrintPrecision -> 3, ShowSyntaxStyles -> False}]}}, 
+          GridBoxAlignment -> {"Rows" -> {{Top}}}, AutoDelete -> False, 
+          GridBoxItemSize -> {
+           "Columns" -> {{Automatic}}, "Rows" -> {{Automatic}}}, 
+          BaselinePosition -> {1, 1}], True -> GridBox[{{
+            GridBox[{{
+               TagBox["\"32 bytes\"", "SummaryItem"]}}, 
+             GridBoxAlignment -> {
+              "Columns" -> {{Left}}, "Rows" -> {{Automatic}}}, AutoDelete -> 
+             False, GridBoxItemSize -> {
+              "Columns" -> {{Automatic}}, "Rows" -> {{Automatic}}}, 
+             GridBoxSpacings -> {"Columns" -> {{2}}, "Rows" -> {{Automatic}}},
+              BaseStyle -> {
+              ShowStringCharacters -> False, NumberMarks -> False, 
+               PrintPrecision -> 3, ShowSyntaxStyles -> False}]}}, 
+          GridBoxAlignment -> {"Rows" -> {{Top}}}, AutoDelete -> False, 
+          GridBoxItemSize -> {
+           "Columns" -> {{Automatic}}, "Rows" -> {{Automatic}}}, 
+          BaselinePosition -> {1, 1}]}, 
+       Dynamic[Typeset`open$$], ImageSize -> Automatic]},
+     "SummaryPanel",
+     DisplayFunction->(
+      ButtonBox[#, Active -> False, Alignment -> Left, 
+       Appearance -> {
+        "Default" -> 
+         FrontEnd`FileName[{"Typeset", "SummaryBox"}, "Panel.9.png"]}, 
+       FrameMargins -> 7, BaseStyle -> {}, 
+       DefaultBaseStyle -> {"Panel", Background -> None}, BaselinePosition -> 
+       Baseline]& )],
+    DynamicModuleValues:>{}], "]"}],
+  ByteArray[{44, 248, 73, 218, 88, 34, 236, 173, 46, 15, 150, 125, 222, 80, 
+   38, 80, 2, 233, 230, 91, 111, 220, 119, 61, 73, 23, 53, 81, 143, 143, 132, 
+   101}],
+  Editable->False,
+  SelectWithContents->True,
+  Selectable->False]], "Output",
+ CellChangeTimes->{3.707961124881132*^9, 3.7087401899778914`*^9, 
+  3.7087407751687207`*^9, 3.708741008553051*^9, 3.7087412450743856`*^9, 
+  3.7087414254836416`*^9, 3.7087415257707834`*^9, 
+  3.720063531920452*^9},ExpressionUUID->"3725085d-8983-4388-b19a-\
+63376a805fe4"]
+}, Open  ]],
+
+Cell[CellGroupData[{
+
+Cell[BoxData[
+ RowBox[{"InputForm", "[", 
+  RowBox[{"ByteArray", "[", 
+   RowBox[{"ToCharacterCode", "[", "decode256Char", "]"}], "]"}], 
+  "]"}]], "Input",
+ CellChangeTimes->{{3.708740293672039*^9, 
+  3.708740300536049*^9}},ExpressionUUID->"cd4810d6-87f0-490b-acc3-\
+2c2d10c821ed"],
+
+Cell["ByteArray[\"LPhJ2lgi7K0uD5Z93lAmUALp5ltv3Hc9SRc1UY+PhGU=\"]", "Output",
+ CellChangeTimes->{3.70874030103605*^9, 3.708740777998725*^9, 
+  3.708741008563051*^9, 3.708741245084386*^9, 3.708741427423644*^9, 
+  3.7087415279717865`*^9, 
+  3.720063535499657*^9},ExpressionUUID->"caf8a0d8-eea2-4b0c-8bb7-\
+21b8ddcc5db2"]
+}, Open  ]],
+
+Cell[CellGroupData[{
+
+Cell[BoxData[
+ RowBox[{"keyspec", "=", 
+  RowBox[{"IntegerString", "[", "\[IndentingNewLine]", 
+   RowBox[{
+    RowBox[{"Hash", "[", "\[IndentingNewLine]", 
+     RowBox[{
+      RowBox[{"ImportString", "[", 
+       RowBox[{"\"\<secretKey\>\"", ",", 
+        RowBox[{"{", 
+         RowBox[{"\"\<Base64\>\"", ",", "\"\<String\>\""}], "}"}]}], "]"}], 
+      ",", "\[IndentingNewLine]", "\"\<SHA256\>\""}], "]"}], ",", 
+    "\[IndentingNewLine]", "16"}], "]"}]}]], "Input",
+ CellChangeTimes->{{3.708740246897973*^9, 
+  3.7087402494979763`*^9}},ExpressionUUID->"ed9aa4ad-b0db-40a5-81f5-\
+0318c9a062fd"],
+
+Cell[BoxData["\<\"\
+8342eb809646487a6d238680da47a615f5177703d8c9e6b6d81dbb6fb471c31b\"\>"], \
+"Output",
+ CellChangeTimes->{3.7087402511489787`*^9, 3.708740784329734*^9, 
+  3.708741008593051*^9, 3.708741245114386*^9, 3.708741536094798*^9, 
+  3.720063542652066*^9},ExpressionUUID->"25dfc7d4-acc3-47e0-8971-\
+630cacbb64ca"]
+}, Open  ]],
+
+Cell[CellGroupData[{
+
+Cell[BoxData[
+ RowBox[{"Decrypt", "[", 
+  RowBox[{"keyspec", ",", 
+   RowBox[{"ByteArray", "[", 
+    RowBox[{"ToCharacterCode", "[", "decode256Char", "]"}], "]"}]}], 
+  "]"}]], "Input",
+ CellChangeTimes->{{3.7079598625375147`*^9, 3.7079598918187666`*^9}, 
+   3.7079611521499805`*^9, 
+   3.7087402650949984`*^9},ExpressionUUID->"5bff8c62-49bb-4d95-b873-\
+0fbd4902d52a"],
+
+Cell[BoxData[
+ TemplateBox[{
+  "Decrypt","ivlen","\"Initialization vector is not of suitable length.\"",2,
+   26,2,33446996418289201172,"Local"},
+  "MessageTemplate"]], "Message", "MSG",
+ CellChangeTimes->{3.7079598932071686`*^9, 3.707961153631983*^9, 
+  3.7087402674050016`*^9, 3.7087404683312864`*^9, 3.708740786610737*^9, 
+  3.7087410090430517`*^9, 3.708741245554387*^9, 3.708741546607813*^9, 
+  3.720063545595235*^9},ExpressionUUID->"e295c24f-cd5e-41f0-b000-\
+ebc1494db615"],
+
+Cell[BoxData["$Failed"], "Output",
+ CellChangeTimes->{3.7079598932071686`*^9, 3.707961153647583*^9, 
+  3.708740267425002*^9, 3.7087404683512864`*^9, 3.708740786630737*^9, 
+  3.7087410090630517`*^9, 3.7087412455743866`*^9, 3.7087415466378126`*^9, 
+  3.720063545624236*^9},ExpressionUUID->"627edffd-c942-4b9b-821e-\
+f487cfc1ad15"]
+}, Open  ]],
+
+Cell["\<\
+This is where we are at. The keyspec is reliable but the decode256Char \
+ByteArray comes up different every time\
+\>", "Text",
+ CellChangeTimes->{{3.720063555414796*^9, 
+  3.7200636161722717`*^9}},ExpressionUUID->"0aaeb1b8-7b05-4a5c-9439-\
+18b4d5db0a3d"],
+
+Cell[CellGroupData[{
+
+Cell[BoxData[
+ RowBox[{"mykey", " ", "=", " ", 
+  RowBox[{"SecuredAuthenticationKey", "[", 
+   RowBox[{"<|", "\[IndentingNewLine]", 
+    RowBox[{
+     RowBox[{"\"\<Name\>\"", "\[Rule]", "\"\<MyAuthKey\>\""}], ",", 
+     "\[IndentingNewLine]", 
+     RowBox[{"\"\<ConsumerKey\>\"", "\[Rule]", " ", "\"\<key\>\""}], ",", 
+     "\[IndentingNewLine]", 
+     RowBox[{"\"\<ConsumerSecret\>\"", "\[Rule]", " ", "\"\<secret\>\""}], 
+     ",", "\[IndentingNewLine]", 
+     RowBox[{
+     "\"\<RequestTokenURL\>\"", "\[Rule]", 
+      "\"\<https://www.coinbase.com/oauth/authorize\>\""}], ",", 
+     "\[IndentingNewLine]", 
+     RowBox[{
+     "\"\<AccessTokenURL\>\"", "\[Rule]", 
+      "\"\<https://api.coinbase.com/oauth/token\>\""}], ",", 
+     "\[IndentingNewLine]", 
+     RowBox[{"\"\<SignatureMethod\>\"", "\[Rule]", 
+      RowBox[{"{", 
+       RowBox[{"\"\<HMAC\>\"", ",", "\"\<SHA1\>\""}], "}"}]}]}], "|>"}], 
+   "]"}]}]], "Input",
+ CellChangeTimes->{
+  3.720064873834606*^9, {3.7200649850959697`*^9, 3.720064992166374*^9}, 
+   3.7200652243716135`*^9, {3.7200655304968643`*^9, 
+   3.7200655395526824`*^9}},ExpressionUUID->"c738078b-4ce8-42b2-8500-\
+41a58b312cd3"],
+
+Cell[BoxData[
+ InterpretationBox[
+  RowBox[{
+   TagBox["SecuredAuthenticationKey",
+    "SummaryHead"], "[", 
+   DynamicModuleBox[{Typeset`open$$ = False, Typeset`embedState$$ = "Ready"}, 
+    TemplateBox[{PaneSelectorBox[{False -> GridBox[{{
+            PaneBox[
+             ButtonBox[
+              DynamicBox[
+               FEPrivate`FrontEndResource[
+               "FEBitmaps", "SquarePlusIconMedium"]], 
+              ButtonFunction :> (Typeset`open$$ = True), Appearance -> None, 
+              Evaluator -> Automatic, Method -> "Preemptive"], 
+             Alignment -> {Center, Center}, ImageSize -> 
+             Dynamic[{
+               Automatic, 3.5 CurrentValue["FontCapHeight"]/
+                AbsoluteCurrentValue[Magnification]}]], 
+            GraphicsBox[{
+              Thickness[0.03333333333333333], 
+              StyleBox[{
+                
+                FilledCurveBox[{{{1, 4, 3}, {1, 3, 3}, {1, 3, 3}, {1, 3, 
+                  3}}, {{0, 2, 0}, {1, 3, 3}, {0, 1, 0}, {0, 1, 0}, {0, 1, 
+                  0}, {1, 3, 3}, {0, 1, 0}, {1, 3, 3}, {0, 1, 0}, {0, 1, 0}, {
+                  1, 3, 3}, {0, 1, 0}, {1, 3, 3}, {0, 1, 0}, {1, 3, 3}, {1, 3,
+                   3}, {1, 3, 3}, {1, 3, 3}, {0, 1, 0}, {0, 1, 0}, {1, 3, 
+                  3}}}, {{{7.539000000000001, 9.105}, {5.762, 9.105}, {
+                  4.319999999999999, 10.543}, {4.319999999999999, 12.324}, {
+                  4.319999999999999, 14.102}, {5.762, 15.543}, {
+                  7.539000000000001, 15.543}, {9.32, 15.543}, {10.758, 
+                  14.102}, {10.758, 12.324}, {10.758, 10.543}, {9.32, 
+                  9.105}, {7.539000000000001, 9.105}}, CompressedData["
+1:eJxTTMoPSmViYGDQAmIQvch12+e/ISYORhxrZKKeSDucXggUiEXwnbtznv/2
+NIXzNWP6D33lMHM47m3e6fhADs6/UvFSzdBDEc5/vHT2EYUNKg6fLvkmCUSY
+Y/Bh6mF8mHlgvoQF3L7sPSWTJVgs4fwpEixhfLwIPg+TdrvYTwQfrH+HFap5
+QD6KfUA+zD0uIP9xWsP5zy4o3f4pZwPnM4CBLYRfoAbnqxsCLZylgSq/QQNV
+/pYW3DyIeh24fTD+prnvlx/r1obzJ76tsTe9p+kQuEOu9fVHA4dKoLM53qg4
+bCjKmPj2jpEDvy5Qh7ocnF9gy3V9cQE/nA+x/4M9xBx9OP/mue/Bj5dqwPmg
+4ODIUYTrt9pyomyfvDjcfBgfZj+MD3Mf2N2n5eDuRwnPlUYYfFj4w/go6SfD
+GB5/6OkRABkoEAI=
+                  "]}]}, 
+               FaceForm[
+                RGBColor[
+                0.5689850000000001, 0.5689850000000001, 0.5689850000000001, 
+                 1.]], StripOnInput -> False], 
+              StyleBox[{
+                
+                FilledCurveBox[{{{1, 4, 3}, {1, 3, 3}, {1, 3, 3}, {1, 3, 
+                  3}}, {{1, 4, 3}, {1, 3, 3}, {0, 1, 0}, {1, 3, 3}, {1, 3, 
+                  3}, {1, 3, 3}, {0, 1, 0}, {1, 3, 3}}}, {{{23.254, 15.48}, {
+                  24.391000000000002`, 15.48}, {25.219, 
+                  14.636999999999999`}, {25.219, 13.57}, {25.219, 12.504}, {
+                  24.391000000000002`, 11.656}, {23.254, 11.656}, {
+                  22.113000000000003`, 11.656}, {21.288999999999998`, 
+                  12.504}, {21.288999999999998`, 13.57}, {21.288999999999998`,
+                   14.636999999999999`}, {22.113000000000003`, 15.48}, {
+                  23.254, 15.48}}, CompressedData["
+1:eJxTTMoPSmViYGAQBWIQHbRDrvW1oYXDnpLJEizfTBxg/GcXlG7/nGfqcLJs
+33yp9eYO0vp3VdgemjrwMGm3i0ki+OvcH1aJ5JnB+U9B+v6ZOkyRYAnj6zV1
+mOrcnfO82tRhGoiWNnXIBlm0xNjh8dLZRxQ2mEHoCSYOny75JgnsMHe4vrjA
+luu6qUPcLk8epmwLh0Wu2z7/DTGH88HmzLaE8yG0NcTeOnM4H+wuPVM4X92Q
+Y43MLyOHypdqhhw9Fg4BvdPzhJKNIPr2WThsKMqY+DbGAOLus6ZwPp/uprnv
+000h/jtoBA8fjZj+Q19PGDughx8AvLCKGg==
+                  "]}]}, 
+               FaceForm[
+                RGBColor[0.999985, 0.999985, 0.999985, 1.]], StripOnInput -> 
+               False], 
+              StyleBox[{
+                
+                FilledCurveBox[{{{1, 4, 3}, {1, 3, 3}, {1, 3, 3}, {1, 3, 
+                  3}}, {{1, 4, 3}, {1, 3, 3}, {0, 1, 0}, {1, 3, 3}, {1, 3, 
+                  3}, {1, 3, 3}, {0, 1, 0}, {1, 3, 3}}}, {{{23.203, 15.156}, {
+                  24.086, 15.156}, {24.723, 14.457}, {24.723, 13.574}, {
+                  24.723, 12.690999999999999`}, {24.086, 11.992}, {23.203, 
+                  11.992}, {22.32, 11.992}, {21.68, 12.690999999999999`}, {
+                  21.68, 13.574}, {21.68, 14.457}, {22.32, 15.156}, {23.203, 
+                  15.156}}, CompressedData["
+1:eJxTTMoPSmViYGAQBWIQfbJs33yp9+YOQTvkWl9vNHaA8U8tdN322dbEQTOm
+/9DXDnOHRUDu3xITh3axm+e+CyP4j5fOPqIwwQzOVzfkWCNjZQYxR98EIn7F
+1MGi0zHh6QVjB6Du4MepJg4MIKBg6nAGZI+sqUOVyDr3h79MHapBtBRUf7+Z
+g3/v9DwhZ3M4/8vfKxUv2SzhfKDqKpE8K4fKl2qGHGdM4Xxp/bsqbA+N4fwp
+EixhfLxGEPeYWEDdbegwzbk753m0hcPVCqABJ/Qdcp//XvlRyAzOb30duEPu
+qKnDaZA77xrCw4eHSbtdbKeRA3r4AQB5MpoX
+                  "]}]}, 
+               FaceForm[
+                RGBColor[
+                0.125, 0.48599200000000004`, 0.7729950000000001, 1.]], 
+               StripOnInput -> False]}, ImageSize -> {30., 30.}, 
+             PlotRange -> {{0., 30.}, {0., 30.}}, AspectRatio -> Automatic], 
+            GridBox[{{
+               RowBox[{
+                 TagBox["\"Name: \"", "SummaryItemAnnotation"], 
+                 "\[InvisibleSpace]", 
+                 TagBox["\"MyAuthKey\"", "SummaryItem"]}]}, {
+               RowBox[{
+                 TagBox["\"Authenticated : \"", "SummaryItemAnnotation"], 
+                 "\[InvisibleSpace]", 
+                 TagBox["False", "SummaryItem"]}]}}, 
+             GridBoxAlignment -> {
+              "Columns" -> {{Left}}, "Rows" -> {{Automatic}}}, AutoDelete -> 
+             False, GridBoxItemSize -> {
+              "Columns" -> {{Automatic}}, "Rows" -> {{Automatic}}}, 
+             GridBoxSpacings -> {"Columns" -> {{2}}, "Rows" -> {{Automatic}}},
+              BaseStyle -> {
+              ShowStringCharacters -> False, NumberMarks -> False, 
+               PrintPrecision -> 3, ShowSyntaxStyles -> False}]}}, 
+          GridBoxAlignment -> {"Rows" -> {{Top}}}, AutoDelete -> False, 
+          GridBoxItemSize -> {
+           "Columns" -> {{Automatic}}, "Rows" -> {{Automatic}}}, 
+          BaselinePosition -> {1, 1}], True -> GridBox[{{
+            PaneBox[
+             ButtonBox[
+              DynamicBox[
+               FEPrivate`FrontEndResource[
+               "FEBitmaps", "SquareMinusIconMedium"]], 
+              ButtonFunction :> (Typeset`open$$ = False), Appearance -> None, 
+              Evaluator -> Automatic, Method -> "Preemptive"], 
+             Alignment -> {Center, Center}, ImageSize -> 
+             Dynamic[{
+               Automatic, 3.5 CurrentValue["FontCapHeight"]/
+                AbsoluteCurrentValue[Magnification]}]], 
+            GraphicsBox[{
+              Thickness[0.03333333333333333], 
+              StyleBox[{
+                
+                FilledCurveBox[{{{1, 4, 3}, {1, 3, 3}, {1, 3, 3}, {1, 3, 
+                  3}}, {{0, 2, 0}, {1, 3, 3}, {0, 1, 0}, {0, 1, 0}, {0, 1, 
+                  0}, {1, 3, 3}, {0, 1, 0}, {1, 3, 3}, {0, 1, 0}, {0, 1, 0}, {
+                  1, 3, 3}, {0, 1, 0}, {1, 3, 3}, {0, 1, 0}, {1, 3, 3}, {1, 3,
+                   3}, {1, 3, 3}, {1, 3, 3}, {0, 1, 0}, {0, 1, 0}, {1, 3, 
+                  3}}}, {{{7.539000000000001, 9.105}, {5.762, 9.105}, {
+                  4.319999999999999, 10.543}, {4.319999999999999, 12.324}, {
+                  4.319999999999999, 14.102}, {5.762, 15.543}, {
+                  7.539000000000001, 15.543}, {9.32, 15.543}, {10.758, 
+                  14.102}, {10.758, 12.324}, {10.758, 10.543}, {9.32, 
+                  9.105}, {7.539000000000001, 9.105}}, CompressedData["
+1:eJxTTMoPSmViYGDQAmIQvch12+e/ISYORhxrZKKeSDucXggUiEXwnbtznv/2
+NIXzNWP6D33lMHM47m3e6fhADs6/UvFSzdBDEc5/vHT2EYUNKg6fLvkmCUSY
+Y/Bh6mF8mHlgvoQF3L7sPSWTJVgs4fwpEixhfLwIPg+TdrvYTwQfrH+HFap5
+QD6KfUA+zD0uIP9xWsP5zy4o3f4pZwPnM4CBLYRfoAbnqxsCLZylgSq/QQNV
+/pYW3DyIeh24fTD+prnvlx/r1obzJ76tsTe9p+kQuEOu9fVHA4dKoLM53qg4
+bCjKmPj2jpEDvy5Qh7ocnF9gy3V9cQE/nA+x/4M9xBx9OP/mue/Bj5dqwPmg
+4ODIUYTrt9pyomyfvDjcfBgfZj+MD3Mf2N2n5eDuRwnPlUYYfFj4w/go6SfD
+GB5/6OkRABkoEAI=
+                  "]}]}, 
+               FaceForm[
+                RGBColor[
+                0.5689850000000001, 0.5689850000000001, 0.5689850000000001, 
+                 1.]], StripOnInput -> False], 
+              StyleBox[{
+                
+                FilledCurveBox[{{{1, 4, 3}, {1, 3, 3}, {1, 3, 3}, {1, 3, 
+                  3}}, {{1, 4, 3}, {1, 3, 3}, {0, 1, 0}, {1, 3, 3}, {1, 3, 
+                  3}, {1, 3, 3}, {0, 1, 0}, {1, 3, 3}}}, {{{23.254, 15.48}, {
+                  24.391000000000002`, 15.48}, {25.219, 
+                  14.636999999999999`}, {25.219, 13.57}, {25.219, 12.504}, {
+                  24.391000000000002`, 11.656}, {23.254, 11.656}, {
+                  22.113000000000003`, 11.656}, {21.288999999999998`, 
+                  12.504}, {21.288999999999998`, 13.57}, {21.288999999999998`,
+                   14.636999999999999`}, {22.113000000000003`, 15.48}, {
+                  23.254, 15.48}}, CompressedData["
+1:eJxTTMoPSmViYGAQBWIQHbRDrvW1oYXDnpLJEizfTBxg/GcXlG7/nGfqcLJs
+33yp9eYO0vp3VdgemjrwMGm3i0ki+OvcH1aJ5JnB+U9B+v6ZOkyRYAnj6zV1
+mOrcnfO82tRhGoiWNnXIBlm0xNjh8dLZRxQ2mEHoCSYOny75JgnsMHe4vrjA
+luu6qUPcLk8epmwLh0Wu2z7/DTGH88HmzLaE8yG0NcTeOnM4H+wuPVM4X92Q
+Y43MLyOHypdqhhw9Fg4BvdPzhJKNIPr2WThsKMqY+DbGAOLus6ZwPp/uprnv
+000h/jtoBA8fjZj+Q19PGDughx8AvLCKGg==
+                  "]}]}, 
+               FaceForm[
+                RGBColor[0.999985, 0.999985, 0.999985, 1.]], StripOnInput -> 
+               False], 
+              StyleBox[{
+                
+                FilledCurveBox[{{{1, 4, 3}, {1, 3, 3}, {1, 3, 3}, {1, 3, 
+                  3}}, {{1, 4, 3}, {1, 3, 3}, {0, 1, 0}, {1, 3, 3}, {1, 3, 
+                  3}, {1, 3, 3}, {0, 1, 0}, {1, 3, 3}}}, {{{23.203, 15.156}, {
+                  24.086, 15.156}, {24.723, 14.457}, {24.723, 13.574}, {
+                  24.723, 12.690999999999999`}, {24.086, 11.992}, {23.203, 
+                  11.992}, {22.32, 11.992}, {21.68, 12.690999999999999`}, {
+                  21.68, 13.574}, {21.68, 14.457}, {22.32, 15.156}, {23.203, 
+                  15.156}}, CompressedData["
+1:eJxTTMoPSmViYGAQBWIQfbJs33yp9+YOQTvkWl9vNHaA8U8tdN322dbEQTOm
+/9DXDnOHRUDu3xITh3axm+e+CyP4j5fOPqIwwQzOVzfkWCNjZQYxR98EIn7F
+1MGi0zHh6QVjB6Du4MepJg4MIKBg6nAGZI+sqUOVyDr3h79MHapBtBRUf7+Z
+g3/v9DwhZ3M4/8vfKxUv2SzhfKDqKpE8K4fKl2qGHGdM4Xxp/bsqbA+N4fwp
+EixhfLxGEPeYWEDdbegwzbk753m0hcPVCqABJ/Qdcp//XvlRyAzOb30duEPu
+qKnDaZA77xrCw4eHSbtdbKeRA3r4AQB5MpoX
+                  "]}]}, 
+               FaceForm[
+                RGBColor[
+                0.125, 0.48599200000000004`, 0.7729950000000001, 1.]], 
+               StripOnInput -> False]}, ImageSize -> {30., 30.}, 
+             PlotRange -> {{0., 30.}, {0., 30.}}, AspectRatio -> Automatic], 
+            GridBox[{{
+               RowBox[{
+                 TagBox["\"Name: \"", "SummaryItemAnnotation"], 
+                 "\[InvisibleSpace]", 
+                 TagBox["\"MyAuthKey\"", "SummaryItem"]}]}, {
+               RowBox[{
+                 TagBox["\"Authenticated : \"", "SummaryItemAnnotation"], 
+                 "\[InvisibleSpace]", 
+                 TagBox["False", "SummaryItem"]}]}, {
+               RowBox[{
+                 TagBox["\"Request URL: \"", "SummaryItemAnnotation"], 
+                 "\[InvisibleSpace]", 
+                 TagBox[
+                 "\"https://www.coinbase.com/oauth/authorize\"", 
+                  "SummaryItem"]}]}, {
+               RowBox[{
+                 TagBox["\"Access URL: \"", "SummaryItemAnnotation"], 
+                 "\[InvisibleSpace]", 
+                 TagBox[
+                 "\"https://api.coinbase.com/oauth/token\"", 
+                  "SummaryItem"]}]}, {
+               RowBox[{
+                 TagBox["\"OAuth Version: \"", "SummaryItemAnnotation"], 
+                 "\[InvisibleSpace]", 
+                 TagBox["\"1.0a\"", "SummaryItem"]}]}, {
+               RowBox[{
+                 TagBox["\"OAuth Type: \"", "SummaryItemAnnotation"], 
+                 "\[InvisibleSpace]", 
+                 TagBox["\"TwoLegged\"", "SummaryItem"]}]}, {
+               RowBox[{
+                 TagBox["\"Consumer Key: \"", "SummaryItemAnnotation"], 
+                 "\[InvisibleSpace]", 
+                 TagBox["\"key\"", "SummaryItem"]}]}, {
+               RowBox[{
+                 TagBox["\"Consumer Secret: \"", "SummaryItemAnnotation"], 
+                 "\[InvisibleSpace]", 
+                 TagBox["\"secret\"", "SummaryItem"]}]}, {
+               RowBox[{
+                 TagBox["\"Signature Method: \"", "SummaryItemAnnotation"], 
+                 "\[InvisibleSpace]", 
+                 TagBox["\"HMAC-SHA1\"", "SummaryItem"]}]}, {
+               RowBox[{
+                 TagBox["\"Transmission Method: \"", "SummaryItemAnnotation"],
+                  "\[InvisibleSpace]", 
+                 TagBox["\"Headers\"", "SummaryItem"]}]}}, 
+             GridBoxAlignment -> {
+              "Columns" -> {{Left}}, "Rows" -> {{Automatic}}}, AutoDelete -> 
+             False, GridBoxItemSize -> {
+              "Columns" -> {{Automatic}}, "Rows" -> {{Automatic}}}, 
+             GridBoxSpacings -> {"Columns" -> {{2}}, "Rows" -> {{Automatic}}},
+              BaseStyle -> {
+              ShowStringCharacters -> False, NumberMarks -> False, 
+               PrintPrecision -> 3, ShowSyntaxStyles -> False}]}}, 
+          GridBoxAlignment -> {"Rows" -> {{Top}}}, AutoDelete -> False, 
+          GridBoxItemSize -> {
+           "Columns" -> {{Automatic}}, "Rows" -> {{Automatic}}}, 
+          BaselinePosition -> {1, 1}]}, 
+       Dynamic[Typeset`open$$], ImageSize -> Automatic]},
+     "SummaryPanel",
+     DisplayFunction->(
+      ButtonBox[#, Active -> False, Alignment -> Left, 
+       Appearance -> {
+        "Default" -> 
+         FrontEnd`FileName[{"Typeset", "SummaryBox"}, "Panel.9.png"]}, 
+       FrameMargins -> 7, BaseStyle -> {}, 
+       DefaultBaseStyle -> {"Panel", Background -> None}, BaselinePosition -> 
+       Baseline]& )],
+    DynamicModuleValues:>{}], "]"}],
+  SecuredAuthenticationKey[
+   Association[
+   "Name" -> "MyAuthKey", "ConsumerKey" -> "key", "ConsumerSecret" -> 
+    "secret", "RequestTokenURL" -> "https://www.coinbase.com/oauth/authorize",
+     "AccessTokenURL" -> "https://api.coinbase.com/oauth/token", 
+    "SignatureMethod" -> {"HMAC", "SHA1"}, "OAuthVersion" -> "1.0a", 
+    "OAuthType" -> "TwoLegged", "TransmissionMethod" -> "Headers"]],
+  Editable->False,
+  SelectWithContents->True,
+  Selectable->False]], "Output",
+ CellChangeTimes->{3.7200650064061885`*^9, 
+  3.720065540831885*^9},ExpressionUUID->"d6a32367-48c0-4cc7-b60a-\
+86d9b371c1aa"]
+}, Open  ]],
+
+Cell["\<\
+Sandbox
+https://docs.gdax.com/#colocation\
+\>", "Text",
+ CellChangeTimes->{{3.7200656161042967`*^9, 
+  3.7200656240942574`*^9}},ExpressionUUID->"2adf5d8c-0002-4230-be9d-\
+707cc1149abd"],
+
+Cell["\<\
+OAUTH2 PERMISSIONS
+https://developers.coinbase.com/docs/wallet/coinbase-connect/permissions\
+\>", "Text",
+ CellChangeTimes->{
+  3.7200652873268385`*^9, {3.7200655967503777`*^9, 
+   3.7200655970165787`*^9}},ExpressionUUID->"51183f82-7f1a-46f2-a96d-\
+50b2617565c4"],
+
+Cell["\<\
+https://developers.coinbase.com/docs/wallet/api-key-authentication\
+\>", "Text",
+ CellChangeTimes->{
+  3.720065370791136*^9},ExpressionUUID->"0f380461-32c1-40bc-8a0d-\
+fb5cbe46959c"],
+
+Cell["\<\
+https://developers.coinbase.com/docs/wallet/coinbase-connect/reference\
+\>", "Text",
+ CellChangeTimes->{
+  3.720065451657146*^9},ExpressionUUID->"f85c7479-2e20-4371-80e4-\
+eb7f293e505d"],
+
+Cell["\<\
+GET https://www.coinbase.com/oauth/authorize
+POST https://api.coinbase.com/oauth/token\
+\>", "Text",
+ CellChangeTimes->{{3.720065492840647*^9, 
+  3.720065506606567*^9}},ExpressionUUID->"2a0bf8c2-2156-45a3-8a81-\
+ba72bfbaf070"],
+
+Cell[BoxData[
+ RowBox[{"(*", 
+  RowBox[{"\[IndentingNewLine]", 
+   RowBox[{"public", " ", "String", " ", "generateSignature", 
+    RowBox[{"(", 
+     RowBox[{
+      RowBox[{"String", " ", "requestPath"}], ",", 
+      RowBox[{"String", " ", "method"}], ",", 
+      RowBox[{"String", " ", "body"}], ",", 
+      RowBox[{"String", " ", "timestamp"}]}], ")"}], " ", 
+    RowBox[{"{", 
+     RowBox[{"try", " ", 
+      RowBox[{"{", 
+       RowBox[{
+        RowBox[{
+         RowBox[{"String", " ", "prehash"}], "=", 
+         RowBox[{"timestamp", "+", 
+          RowBox[{
+           RowBox[{"method", ".", "toUpperCase"}], 
+           RowBox[{"(", ")"}]}], "+", "requestPath", "+", "body"}]}], ";", 
+        "\[IndentingNewLine]", 
+        RowBox[{
+         RowBox[{
+          RowBox[{"byte", "[", "]"}], " ", "secretDecoded"}], "=", 
+         RowBox[{
+          RowBox[{"Base64", ".", "getDecoder"}], 
+          RowBox[{
+           RowBox[{"(", ")"}], ".", "decode"}], 
+          RowBox[{"(", "secretKey", ")"}]}]}], ";", "\[IndentingNewLine]", 
+        RowBox[{
+         RowBox[{"SecretKeySpec", " ", "keyspec"}], "=", 
+         RowBox[{"new", " ", "SecretKeySpec", 
+          RowBox[{"(", 
+           RowBox[{"secretDecoded", ",", "\"\<HmacSHA256\>\""}], ")"}]}]}], 
+        ";", "\[IndentingNewLine]", 
+        RowBox[{
+         RowBox[{"Mac", " ", "sha256"}], "=", 
+         RowBox[{
+          RowBox[{"(", "Mac", ")"}], " ", 
+          RowBox[{"GdaxConstants", ".", "SHARED_MAC", ".", "clone"}], 
+          RowBox[{"(", ")"}]}]}], ";", "\[IndentingNewLine]", 
+        RowBox[{
+         RowBox[{"sha256", ".", "init"}], 
+         RowBox[{"(", "keyspec", ")"}]}], ";", "\[IndentingNewLine]", 
+        RowBox[{"return", " ", 
+         RowBox[{"Base64", ".", "getEncoder"}], 
+         RowBox[{
+          RowBox[{"(", ")"}], ".", "encodeToString"}], 
+         RowBox[{"(", 
+          RowBox[{
+           RowBox[{"sha256", ".", "doFinal"}], 
+           RowBox[{"(", 
+            RowBox[{
+             RowBox[{"prehash", ".", "getBytes"}], 
+             RowBox[{"(", ")"}]}], ")"}]}], ")"}]}], ";"}], "}"}], " ", 
+      "catch", " ", 
+      RowBox[{"(", 
+       RowBox[{"CloneNotSupportedException", "|", 
+        RowBox[{"InvalidKeyException", " ", "e"}]}], ")"}], " ", 
+      RowBox[{"{", 
+       RowBox[{
+        RowBox[{
+         RowBox[{"e", ".", "printStackTrace"}], 
+         RowBox[{"(", ")"}]}], ";", "\[IndentingNewLine]", 
+        RowBox[{"throw", " ", "new", " ", "RuntimeErrorException", 
+         RowBox[{"(", 
+          RowBox[{"new", " ", "Error", 
+           RowBox[{
+           "(", "\"\<Cannot set up authentication headers.\>\"", ")"}]}], 
+          ")"}]}], ";"}], "}"}]}], "}"}]}], "\n", "}"}], 
+  "\[IndentingNewLine]", "*)"}]], "Input",
+ CellChangeTimes->{{3.7058675059636507`*^9, 
+  3.7058675102210765`*^9}},ExpressionUUID->"828c8420-0a1e-472a-b409-\
+617b7a184423"],
+
+Cell[BoxData[
+ RowBox[{"(*", " ", 
+  RowBox[{
+   RowBox[{"Mac", ":", "\[IndentingNewLine]", 
+    RowBox[{
+    "This", " ", "class", " ", "provides", " ", "the", " ", "functionality", 
+     " ", "of", " ", "a", " ", "\"\<Message Authentication Code\>\"", " ", 
+     RowBox[{"(", "MAC", ")"}], " ", 
+     RowBox[{"algorithm", ".", "A"}], " ", "MAC", " ", "provides", " ", "a", 
+     " ", "way", " ", "to", " ", "check", " ", "the", " ", "integrity", " ", 
+     "of", " ", "information", " ", "transmitted", " ", "over", " ", "or", 
+     " ", "stored", " ", "in", " ", "an", " ", "unreliable", " ", 
+     "medium"}]}], ",", 
+   RowBox[{"based", " ", "on", " ", "a", " ", "secret", " ", 
+    RowBox[{"key", ".", "Typically"}]}], ",", 
+   RowBox[{
+   "message", " ", "authentication", " ", "codes", " ", "are", " ", "used", 
+    " ", "between", " ", "two", " ", "parties", " ", "that", " ", "share", 
+    " ", "a", " ", "secret", " ", "key", " ", "in", " ", "order", " ", "to", 
+    " ", "validate", " ", "information", " ", "transmitted", " ", "between", 
+    " ", "these", " ", 
+    RowBox[{"parties", ".", "A"}], " ", "MAC", " ", "mechanism", " ", "that", 
+    " ", "is", " ", "based", " ", "on", " ", "cryptographic", " ", "hash", 
+    " ", "functions", " ", "is", " ", "referred", " ", "to", " ", "as", " ", 
+    RowBox[{"HMAC", ".", "HMAC"}], " ", "can", " ", "be", " ", "used", " ", 
+    "with", " ", "any", " ", "cryptographic", " ", "hash", " ", "function"}], 
+   ",", 
+   RowBox[{"e", ".", "g", "."}], ",", 
+   RowBox[{
+    RowBox[{"MD5", " ", "or", " ", "SHA"}], "-", "1"}], ",", 
+   RowBox[{
+   "in", " ", "combination", " ", "with", " ", "a", " ", "secret", " ", 
+    "shared", " ", 
+    RowBox[{"key", ".", "HMAC"}], " ", "is", " ", "specified", " ", "in", " ",
+     "RFC", " ", "2104.", "\[IndentingNewLine]", "\[IndentingNewLine]", 
+    "init", " ", "constructs", " ", "the", " ", 
+    RowBox[{"object", ".", "  ", "doFinal"}], " ", "completes", " ", "it"}], 
+   ",", " ", 
+   RowBox[{"according", " ", "to", " ", "the", " ", 
+    RowBox[{"documentation", ".", "  ", "Not"}], " ", "sure", " ", "what", 
+    " ", "that", " ", "means", " ", "exactly"}], ",", " ", 
+   RowBox[{
+   "but", " ", "this", " ", "is", " ", "clearly", " ", "what", " ", "does", 
+    " ", "the", " ", "HMAC", " ", "encoding", " ", "with", " ", "the", " ", 
+    "secret", " ", 
+    RowBox[{"key", ".", "  ", "The"}], " ", "line", "\[IndentingNewLine]", 
+    "\[IndentingNewLine]", 
+    RowBox[{"Base64", ".", "getEncoder"}], 
+    RowBox[{
+     RowBox[{"(", ")"}], ".", "encodeToString"}], 
+    RowBox[{"(", 
+     RowBox[{
+      RowBox[{"sha256", ".", "doFinal"}], 
+      RowBox[{"(", 
+       RowBox[{
+        RowBox[{"prehash", ".", "getBytes"}], 
+        RowBox[{"(", ")"}]}], ")"}]}], ")"}], "\[IndentingNewLine]", 
+    "\[IndentingNewLine]", "can", " ", "be", " ", "broken", " ", "up", " ", 
+    RowBox[{"as", ":", "\[IndentingNewLine]", "\[IndentingNewLine]", 
+     RowBox[{
+      RowBox[{"prehash", ".", "getBytes"}], 
+      RowBox[{"(", ")"}]}], ":", "  ", 
+     RowBox[{
+     "convert", " ", "prehash", " ", "into", " ", "its", " ", "sequence", " ",
+       "of", " ", 
+      RowBox[{"bytes", ".", "  ", "In"}], " ", "Java"}]}]}], ",", " ", 
+   RowBox[{"char", " ", "is", " ", "a", " ", "short"}], ",", " ", 
+   RowBox[{
+    RowBox[{
+    "so", " ", "the", " ", "letter", " ", "\"\<A\>\"", " ", "is", " ", 
+     "represented", " ", "as", " ", "0", 
+     RowBox[{"x0062", ".", "  ", "Converting"}], " ", "to", " ", "bytes", " ",
+      "will", " ", "convert", " ", "this", " ", "to", " ", "0", "x62", 
+     "\[IndentingNewLine]", "\[IndentingNewLine]", " ", 
+     RowBox[{"sha256", ".", "doFinal"}], 
+     RowBox[{"(", 
+      RowBox[{
+       RowBox[{"prehash", ".", "getBytes"}], 
+       RowBox[{"(", ")"}]}], ")"}]}], ":", "  ", 
+    RowBox[{
+    "This", " ", "takes", " ", "the", " ", "byte", " ", "string", " ", "and", 
+     " ", "encrypts", " ", "it", " ", "using", " ", "our", " ", "secret", " ",
+      "key", " ", "in", " ", "sha256", "\[IndentingNewLine]", 
+     "\[IndentingNewLine]", 
+     RowBox[{"Base64", ".", "getEncoder"}], 
+     RowBox[{
+      RowBox[{"(", ")"}], ".", "encodeToString"}], 
+     RowBox[{"(", 
+      RowBox[{
+       RowBox[{"sha256", ".", "doFinal"}], 
+       RowBox[{"(", 
+        RowBox[{
+         RowBox[{"prehash", ".", "getBytes"}], 
+         RowBox[{"(", ")"}]}], ")"}]}], ")"}]}], ":", "  ", 
+    RowBox[{
+     RowBox[{
+     "Once", " ", "we", " ", "have", " ", "encoded", " ", "the", " ", "bytes",
+       " ", "of", " ", "our", " ", "pre"}], "-", "hash"}]}], ",", " ", 
+   RowBox[{
+   "convert", " ", "the", " ", "encoding", " ", "to", " ", "a", " ", "Base64",
+     " ", 
+    RowBox[{"string", ".", "  ", "So"}]}], ",", " ", 
+   RowBox[{
+   "what", " ", "we", " ", "are", " ", "trying", " ", "to", " ", "get", " ", 
+    "here", " ", "is", " ", "the", " ", "base64", " ", "encoded"}], ",", " ", 
+   RowBox[{"HMac", " ", "encrypted", " ", 
+    RowBox[{"prehash", ".", "\[IndentingNewLine]", "."}]}]}], "    ", 
+  "\[IndentingNewLine]", "*)"}]], "Input",
+ CellChangeTimes->{{3.705882504672372*^9, 3.7058826353434377`*^9}, {
+  3.7058826860505075`*^9, 3.705882891912092*^9}, {3.705882923235224*^9, 
+  3.7058829946893682`*^9}},ExpressionUUID->"08a34326-eb86-4962-b923-\
+be033a413cb3"]
+},
+WindowSize->{986, 835},
+WindowMargins->{{Automatic, 15}, {Automatic, 29}},
+FrontEndVersion->"11.2 for Microsoft Windows (64-bit) (September 10, 2017)",
+StyleDefinitions->"Default.nb"
+]
+(* End of Notebook Content *)
+
+(* Internal cache information *)
+(*CellTagsOutline
+CellTagsIndex->{}
+*)
+(*CellTagsIndex
+CellTagsIndex->{}
+*)
+(*NotebookFileOutline
+Notebook[{
+Cell[CellGroupData[{
+Cell[580, 22, 195, 4, 28, "Input",ExpressionUUID->"9f24d9da-2f20-4510-97bd-30ec0b50837f"],
+Cell[778, 28, 201, 4, 32, "Output",ExpressionUUID->"2c2fee80-ab5b-4ba2-a42d-141064e55a0a"]
+}, Open  ]],
+Cell[994, 35, 498, 10, 50, "Text",ExpressionUUID->"a5da66c0-bbb0-4b19-840d-c30861fc3f64"],
+Cell[1495, 47, 157, 3, 34, "Text",ExpressionUUID->"153a0431-4f26-45e1-9af0-012e7bbf2d1f"],
+Cell[1655, 52, 170, 3, 34, "Text",ExpressionUUID->"f505f9fe-4f50-4e7b-a3a2-935b64d64988"],
+Cell[1828, 57, 165, 3, 34, "Text",ExpressionUUID->"480c3700-e5ec-4679-b723-c9db7eeec429"],
+Cell[1996, 62, 731, 19, 141, "Code",ExpressionUUID->"f926ade6-57c6-404e-86a2-077850c9cb71",
+ InitializationCell->False],
+Cell[2730, 83, 173, 3, 34, "Text",ExpressionUUID->"ab0bf8fe-45f5-4a72-a327-15371071e957"],
+Cell[2906, 88, 4150, 99, 375, "Code",ExpressionUUID->"83afbe9d-c851-4ce9-b42e-35ff657bec2a",
+ InitializationCell->False],
+Cell[7059, 189, 134, 3, 34, "Text",ExpressionUUID->"4ff2f5f1-0a7e-4579-8a3d-d00aacf8becb"],
+Cell[7196, 194, 235, 6, 34, "Text",ExpressionUUID->"15cc9c9c-dfa0-42ce-8e4a-effd9f511326"],
+Cell[7434, 202, 263, 6, 34, "Text",ExpressionUUID->"68234e00-0c3f-4a69-90b0-95803c810ffe"],
+Cell[7700, 210, 203, 9, 122, "Text",ExpressionUUID->"de2afe96-be05-4e90-b7a8-a042641265d3"],
+Cell[7906, 221, 130, 3, 34, "Text",ExpressionUUID->"8874c2cf-2861-42c6-96df-d15975dc5ae7"],
+Cell[8039, 226, 489, 14, 50, "Code",ExpressionUUID->"a73878ea-fa8a-4ed6-b229-d753a6f4c34a",
+ InitializationCell->False],
+Cell[CellGroupData[{
+Cell[8553, 244, 287, 7, 28, "Input",ExpressionUUID->"fc32c9bf-73bf-4aa8-9cdf-51ccaee37161"],
+Cell[8843, 253, 430, 7, 52, "Output",ExpressionUUID->"68a1dea8-513f-4b3f-b4d1-2b195274480b"]
+}, Open  ]],
+Cell[9288, 263, 151, 3, 34, "Text",ExpressionUUID->"5a3e1e1e-d640-4e50-95b5-1af113f1c6f0"],
+Cell[9442, 268, 428, 7, 52, "Output",ExpressionUUID->"05df7973-d772-4e8b-88b6-facc79835f4d"],
+Cell[9873, 277, 149, 3, 34, "Text",ExpressionUUID->"d04550b5-b765-49aa-8775-a79c91bda882"],
+Cell[10025, 282, 428, 7, 52, "Output",ExpressionUUID->"1b80b14e-074b-4c97-927b-616275e242ab"],
+Cell[10456, 291, 188, 3, 34, "Text",ExpressionUUID->"46d6f890-14b1-49af-830c-f0cc541432e2"],
+Cell[10647, 296, 199, 7, 78, "Text",ExpressionUUID->"849ac388-48d9-4eb5-a9d3-45bda237bb09"],
+Cell[10849, 305, 144, 3, 34, "Text",ExpressionUUID->"dcbda27b-2b57-40d9-b1bd-296726eb5a78"],
+Cell[10996, 310, 1410, 39, 213, "Code",ExpressionUUID->"be99c5e8-fa25-4efa-b5ff-4d987e9e0fcf",
+ InitializationCell->False],
+Cell[12409, 351, 189, 5, 34, "Text",ExpressionUUID->"f0373e1f-ad79-45d4-9b44-cd28eccc7b00"],
+Cell[12601, 358, 198, 5, 34, "Text",ExpressionUUID->"79230a0b-db32-4c38-ba4c-9def07f95104"],
+Cell[12802, 365, 427, 8, 50, "Text",ExpressionUUID->"340bde82-69f3-483c-9b19-74d1586bf9e9"],
+Cell[13232, 375, 261, 6, 34, "Text",ExpressionUUID->"4e51c167-0148-4f62-aae8-a05f51a941cc"],
+Cell[13496, 383, 364, 8, 50, "Text",ExpressionUUID->"56a61a8f-865e-406f-ae7a-854c226b7489"],
+Cell[13863, 393, 337, 7, 56, "Text",ExpressionUUID->"2f0147b6-2cf0-4d24-a9a3-850f371b9895"],
+Cell[14203, 402, 160, 3, 34, "Text",ExpressionUUID->"a57ec70a-1d73-417d-b86b-fe30f1f38695"],
+Cell[14366, 407, 149, 3, 34, "Text",ExpressionUUID->"5d50b2db-2ac9-4a81-88de-78aa7bbc0f14"],
+Cell[14518, 412, 297, 7, 56, "Text",ExpressionUUID->"01b4ffb8-5305-40ac-8f4b-032a814c8a42"],
+Cell[14818, 421, 915, 20, 213, "Code",ExpressionUUID->"451b1956-319c-4bc2-b9d1-5d86f9e4e61f",
+ InitializationCell->False],
+Cell[15736, 443, 227, 6, 34, "Text",ExpressionUUID->"68674024-258d-4f65-9b68-9186c0f95bf4"],
+Cell[15966, 451, 276, 6, 56, "Text",ExpressionUUID->"068944ce-aef0-4730-ad69-00a57499b6df"],
+Cell[16245, 459, 690, 16, 123, "Code",ExpressionUUID->"9a739168-b075-421e-ad26-66e37c2db620",
+ InitializationCell->False],
+Cell[16938, 477, 368, 8, 34, "Text",ExpressionUUID->"33c94258-3d77-49ba-ae86-c86d97efb500"],
+Cell[17309, 487, 1410, 39, 213, "Code",ExpressionUUID->"0415aaab-c333-40eb-a0a6-6f8f1d6ce86b",
+ InitializationCell->False],
+Cell[18722, 528, 282, 7, 56, "Text",ExpressionUUID->"3885526a-4b54-4c0d-bd82-05543560e000"],
+Cell[19007, 537, 903, 20, 195, "Code",ExpressionUUID->"f0f1e9af-813a-4ba5-b3b1-deb7211f622d",
+ InitializationCell->False],
+Cell[19913, 559, 386, 10, 78, "Text",ExpressionUUID->"4bd559e4-854b-4c81-8a90-e37af4386d61"],
+Cell[20302, 571, 265, 6, 34, "Text",ExpressionUUID->"336ba0fc-4358-4b0e-a1af-4f3dc96103b8"],
+Cell[20570, 579, 234, 6, 34, "Text",ExpressionUUID->"1d4ae1cf-41c4-4953-92a2-60070b4d424f"],
+Cell[20807, 587, 810, 20, 49, "Text",ExpressionUUID->"3752a288-681e-4e5c-a5d5-638182149592"],
+Cell[21620, 609, 214, 6, 34, "Text",ExpressionUUID->"675aa3b8-c051-4a0b-8d91-bf897085689b"],
+Cell[21837, 617, 812, 20, 49, "Text",ExpressionUUID->"8659df9f-b381-4940-931f-f311be036180"],
+Cell[22652, 639, 338, 9, 78, "Text",ExpressionUUID->"b3e7be6f-f3ed-4a01-80c6-3f94614930af"],
+Cell[22993, 650, 807, 20, 49, "Text",ExpressionUUID->"505fa047-b45f-4067-be2f-204f86a8ac45"],
+Cell[23803, 672, 518, 14, 188, "Text",ExpressionUUID->"0fea7d2e-22cd-42c9-b825-1e24c45a2319"],
+Cell[24324, 688, 689, 17, 49, "Text",ExpressionUUID->"cf990a14-d39c-4099-affc-ff7856ffb31c"],
+Cell[25016, 707, 248, 6, 34, "Text",ExpressionUUID->"8eb10048-bfb6-41de-b927-7d734fafcaf8"],
+Cell[25267, 715, 378, 11, 122, "Text",ExpressionUUID->"a84084a2-baaf-431a-ba46-2b90f6671f79"],
+Cell[25648, 728, 310, 15, 254, "Text",ExpressionUUID->"7e82e9c1-4bcd-4f0f-bbce-8ec2e88641d6"],
+Cell[25961, 745, 422, 8, 78, "Text",ExpressionUUID->"377d2624-4233-4b62-81b7-326ec7728cf2"],
+Cell[26386, 755, 2074, 60, 303, "Code",ExpressionUUID->"c1ca2318-ae20-4ddf-9583-062b32db0c11",
+ InitializationCell->False],
+Cell[28463, 817, 150, 3, 34, "Text",ExpressionUUID->"3c1eaa4e-9950-40fc-b9c3-9d7d6980ac4f"],
+Cell[28616, 822, 454, 12, 166, "Text",ExpressionUUID->"5eaccdd4-9fb1-4059-91be-96d26d962425"],
+Cell[29073, 836, 227, 4, 34, "Text",ExpressionUUID->"2d1b8d9e-c4ae-4e7d-94e5-39759d07779d"],
+Cell[29303, 842, 152, 3, 34, "Text",ExpressionUUID->"f902881e-a995-4dd7-b2e1-e63be2bbbece"],
+Cell[29458, 847, 451, 12, 188, "Text",ExpressionUUID->"5f417f59-2cf1-45c6-941e-e7e3f978d393"],
+Cell[29912, 861, 174, 3, 34, "Text",ExpressionUUID->"cb78f8bd-6356-4a14-a1d0-76d3a3a14255"],
+Cell[30089, 866, 253, 6, 34, "Text",ExpressionUUID->"b190450a-ae52-4e1e-8fba-825175b9a9e4"],
+Cell[30345, 874, 312, 6, 56, "Text",ExpressionUUID->"0d230a69-016f-4c38-9a5c-5b0f930277c1"],
+Cell[30660, 882, 732, 19, 49, "Text",ExpressionUUID->"1c90e643-cd71-4c60-8deb-05463d3dddf3"],
+Cell[31395, 903, 366, 8, 56, "Text",ExpressionUUID->"650b97b5-84fa-44c7-bcef-b55ea8fcb994"],
+Cell[31764, 913, 3422, 116, 465, "Code",ExpressionUUID->"2b9e2d77-4b85-47d0-8827-fdff78ffaf35"],
+Cell[CellGroupData[{
+Cell[35211, 1033, 893, 21, 143, "Input",ExpressionUUID->"5604f289-75c7-406d-8041-1b6dbd89a344"],
+Cell[36107, 1056, 355, 6, 71, "Output",ExpressionUUID->"d4e7f73e-0a9d-4b08-a776-e45a9ec47c09"]
+}, Open  ]],
+Cell[36477, 1065, 243, 6, 34, "Text",ExpressionUUID->"d3c4ae30-a094-4e31-b612-0d5e4bb667c1"],
+Cell[36723, 1073, 242, 6, 34, "Text",ExpressionUUID->"fbc13ff6-fd8c-4d0d-9a09-9040dfea7574"],
+Cell[CellGroupData[{
+Cell[36990, 1083, 595, 14, 105, "Input",ExpressionUUID->"58dc30ad-e6b1-4564-9371-b4de6ed12d19"],
+Cell[37588, 1099, 229, 5, 32, "Output",ExpressionUUID->"6e251f2e-49af-4d1e-83f2-39cd2a380da2"]
+}, Open  ]],
+Cell[37832, 1107, 147, 3, 34, "Text",ExpressionUUID->"6b424733-5627-42d3-a40d-00d22ba2b076"],
+Cell[37982, 1112, 274, 5, 32, "Output",ExpressionUUID->"8d524892-610a-4470-ae8b-7699a76cf671"],
+Cell[CellGroupData[{
+Cell[38281, 1121, 384, 8, 28, "Input",ExpressionUUID->"d725aca2-4bb7-4d6b-b354-80f68a5b62e9"],
+Cell[38668, 1131, 5798, 117, 86, "Output",ExpressionUUID->"004d7236-8b4b-4b32-9f90-f0fc60ede6ce"]
+}, Open  ]],
+Cell[44481, 1251, 248, 4, 34, "Text",ExpressionUUID->"6ab35c9b-8b03-4c88-8815-d7f76d83cf30"],
+Cell[CellGroupData[{
+Cell[44754, 1259, 243, 5, 28, "Input",ExpressionUUID->"ded6f12b-92c1-4148-8848-c0101bd8765b"],
+Cell[45000, 1266, 287, 4, 32, "Output",ExpressionUUID->"400229ef-50e5-43b9-8ce7-24819cbf2ea8"]
+}, Open  ]],
+Cell[45302, 1273, 259, 6, 34, "Text",ExpressionUUID->"e9e3975b-b8b6-4dbc-9088-76b858309776"],
+Cell[CellGroupData[{
+Cell[45586, 1283, 248, 5, 28, "Input",ExpressionUUID->"5a94aea5-123e-493c-b46c-7a36b291e789"],
+Cell[45837, 1290, 2764, 56, 55, "Output",ExpressionUUID->"6063ca72-121d-4c28-9ff5-f528242aeb66"]
+}, Open  ]],
+Cell[CellGroupData[{
+Cell[48638, 1351, 303, 8, 28, "Input",ExpressionUUID->"445f6813-9814-405f-92c8-691067bafef9"],
+Cell[48944, 1361, 186, 3, 52, "Output",ExpressionUUID->"6ed41c96-82d3-4891-8d65-b7f0cab28a26"]
+}, Open  ]],
+Cell[49145, 1367, 249, 4, 34, "Text",ExpressionUUID->"902f5623-f356-4f75-9ed2-4d2276a3d1d7"],
+Cell[CellGroupData[{
+Cell[49419, 1375, 251, 5, 28, "Input",ExpressionUUID->"29a0f805-5905-4455-9239-4caf3da8db32"],
+Cell[49673, 1382, 403, 8, 21, "Message",ExpressionUUID->"a3630e98-4dd3-44c8-b950-583538d06110"],
+Cell[50079, 1392, 259, 4, 32, "Output",ExpressionUUID->"08838882-69c4-4fea-9e56-e9c901caaf99"]
+}, Open  ]],
+Cell[50353, 1399, 333, 7, 34, "Text",ExpressionUUID->"00c91a9f-4aa6-4879-8007-e9b3edb12d9b"],
+Cell[CellGroupData[{
+Cell[50711, 1410, 211, 4, 28, "Input",ExpressionUUID->"fe7f7a2a-a61d-4b9d-84dc-3af4e2f8f5bd"],
+Cell[50925, 1416, 2494, 53, 55, "Output",ExpressionUUID->"9b531d43-5a02-4afe-98b3-e36db6b734d8"]
+}, Open  ]],
+Cell[53434, 1472, 195, 5, 34, "Text",ExpressionUUID->"bdd1f349-4bd9-458e-b676-1a550c6be069"],
+Cell[CellGroupData[{
+Cell[53654, 1481, 240, 6, 28, "Input",ExpressionUUID->"fc2289f8-a814-400b-a15d-35f037819a06"],
+Cell[53897, 1489, 352, 8, 32, "Output",ExpressionUUID->"81990566-7135-4b6f-b537-ce4c03470826"]
+}, Open  ]],
+Cell[CellGroupData[{
+Cell[54286, 1502, 247, 5, 28, "Input",ExpressionUUID->"4a356866-1ee4-449c-aebf-2bfa7b0f376b"],
+Cell[54536, 1509, 767, 13, 52, "Output",ExpressionUUID->"ed8b2ff3-034f-4897-8660-39b8b6afbcc3"]
+}, Open  ]],
+Cell[55318, 1525, 312, 7, 34, "Text",ExpressionUUID->"e960c51d-139c-4792-9117-3bb9b587d652"],
+Cell[55633, 1534, 801, 14, 52, "Output",ExpressionUUID->"59bff877-f778-4cec-bb8f-1896ade04ac0"],
+Cell[CellGroupData[{
+Cell[56459, 1552, 207, 4, 28, "Input",ExpressionUUID->"b9cf85ca-21bb-4928-8a9a-045e55da9952"],
+Cell[56669, 1558, 438, 7, 32, "Output",ExpressionUUID->"217ea112-0e9c-4dda-869a-5f7fcf59742b"]
+}, Open  ]],
+Cell[57122, 1568, 147, 3, 34, "Text",ExpressionUUID->"a194eff6-1e3f-4c90-938f-4b732cd6240e"],
+Cell[57272, 1573, 476, 7, 32, "Output",ExpressionUUID->"2f971dc5-c232-413f-899c-12700eab510b"],
+Cell[57751, 1582, 145, 3, 34, "Text",ExpressionUUID->"4d4536f3-51a3-428c-9906-5c8832ffc5db"],
+Cell[57899, 1587, 431, 7, 32, "Output",ExpressionUUID->"a07d1b13-301e-4836-a41f-c3ca2a2418e8"],
+Cell[CellGroupData[{
+Cell[58355, 1598, 346, 9, 28, "Input",ExpressionUUID->"40760df0-e5e0-437b-ae01-c1d69e018c09"],
+Cell[58704, 1609, 208, 4, 52, "Output",ExpressionUUID->"a2b6f62a-934e-4fc3-ad0c-45a2a1d9dd85"]
+}, Open  ]],
+Cell[58927, 1616, 149, 3, 34, "Text",ExpressionUUID->"e8ccc4f1-0485-42e9-b72f-2c8f54ac9cb5"],
+Cell[59079, 1621, 208, 4, 52, "Output",ExpressionUUID->"8726ea5d-3d88-469e-85dd-655662fcfc53"],
+Cell[59290, 1627, 149, 3, 34, "Text",ExpressionUUID->"e199fc08-6288-4900-83b5-aab2b41d7c23"],
+Cell[59442, 1632, 206, 4, 52, "Output",ExpressionUUID->"5d8fa2bf-cea6-46ec-bd1f-f46ed346379c"],
+Cell[59651, 1638, 300, 7, 34, "Text",ExpressionUUID->"7e5a0ca6-6005-4582-a64b-326629e6f23b"],
+Cell[CellGroupData[{
+Cell[59976, 1649, 220, 4, 28, "Input",ExpressionUUID->"75d6ae3f-dbea-40cd-ab99-fa7beac3b5c7"],
+Cell[60199, 1655, 211, 6, 46, "Output",ExpressionUUID->"6d94edda-7ffb-4714-b9ab-022c3a8dafd4"]
+}, Open  ]],
+Cell[60425, 1664, 147, 3, 34, "Text",ExpressionUUID->"d57a40c7-03c6-4c0d-9915-2afa59f2bdb9"],
+Cell[60575, 1669, 233, 6, 32, "Output",ExpressionUUID->"cf40834c-edcc-41ee-81e4-17838ea2bd4d"],
+Cell[CellGroupData[{
+Cell[60833, 1679, 889, 22, 162, "Input",ExpressionUUID->"e8f6c764-b02b-49ff-96d6-681b0479b839"],
+Cell[61725, 1703, 299, 6, 71, "Output",ExpressionUUID->"613e5fc0-9c50-4eb8-9204-c5244d20df07"]
+}, Open  ]],
+Cell[62039, 1712, 147, 3, 34, "Text",ExpressionUUID->"7700d31d-8fef-454f-81b5-6ad9052b570b"],
+Cell[62189, 1717, 297, 6, 71, "Output",ExpressionUUID->"318d5861-13a0-484f-a691-664cf4952a8a"],
+Cell[62489, 1725, 725, 14, 166, "Text",ExpressionUUID->"0a775cd4-ab40-4afc-9bc9-9a7adff5eb20"],
+Cell[63217, 1741, 2241, 54, 219, "Input",ExpressionUUID->"21a06b0d-8264-4dfd-bb86-0e242a00827a"],
+Cell[65461, 1797, 271, 6, 34, "Text",ExpressionUUID->"59d37957-cdcc-4009-85e6-daba511595c4"],
+Cell[CellGroupData[{
+Cell[65757, 1807, 415, 10, 28, "Input",ExpressionUUID->"94520244-ab35-4317-8498-c40fe89eedc0"],
+Cell[66175, 1819, 236, 5, 32, "Output",ExpressionUUID->"50d4fcc8-d020-4802-923f-57e5484f5ef7"]
+}, Open  ]],
+Cell[CellGroupData[{
+Cell[66448, 1829, 359, 10, 28, "Input",ExpressionUUID->"be5eb398-cbe8-49d2-bc00-0ca9a396b2a0"],
+Cell[66810, 1841, 234, 5, 32, "Output",ExpressionUUID->"b8a81460-c26d-49ce-807f-a71665db0524"]
+}, Open  ]],
+Cell[CellGroupData[{
+Cell[67081, 1851, 433, 11, 28, "Input",ExpressionUUID->"9034c542-6dbf-4045-84bb-e6ca7a32d46c"],
+Cell[67517, 1864, 229, 5, 32, "Output",ExpressionUUID->"b2282b35-3428-4f36-ac14-05c632c0bd0c"]
+}, Open  ]],
+Cell[CellGroupData[{
+Cell[67783, 1874, 906, 22, 67, "Input",ExpressionUUID->"1537d58a-37ea-499c-b0b2-a95cc9c9253a"],
+Cell[68692, 1898, 330, 5, 32, "Output",ExpressionUUID->"bf88c252-ac69-4be7-8b46-7d7b1b5ab20e"]
+}, Open  ]],
+Cell[CellGroupData[{
+Cell[69059, 1908, 960, 24, 105, "Input",ExpressionUUID->"83ac328d-d8c6-4de7-a96d-dddf8532a129"],
+Cell[70022, 1934, 727, 15, 142, "Output",ExpressionUUID->"4c6350ed-f270-4217-9c68-4ea320ed6d1c"]
+}, Open  ]],
+Cell[70764, 1952, 173, 3, 34, "Text",ExpressionUUID->"3c8bfe1f-94a5-4efa-83df-5b5e6d7824bb"],
+Cell[CellGroupData[{
+Cell[70962, 1959, 305, 7, 28, "Input",ExpressionUUID->"b6d228fb-b879-4d6e-a86d-2ab69ad8c7a2"],
+Cell[71270, 1968, 188, 4, 52, "Output",ExpressionUUID->"cece2606-db40-42d2-b4d9-cae226e32453"]
+}, Open  ]],
+Cell[71473, 1975, 147, 3, 34, "Text",ExpressionUUID->"b534faac-006a-4c46-ac69-b1305db6ed89"],
+Cell[71623, 1980, 334, 6, 52, "Output",ExpressionUUID->"457a6d34-0efa-4283-8b28-ce14772358cf"],
+Cell[71960, 1988, 171, 3, 34, "Text",ExpressionUUID->"84a598b1-665a-44a7-90c4-e0f295671be3"],
+Cell[CellGroupData[{
+Cell[72156, 1995, 344, 8, 28, "Input",ExpressionUUID->"8e8471d5-11ac-401e-b3d6-a6da0abe1451"],
+Cell[72503, 2005, 210, 4, 52, "Output",ExpressionUUID->"a63b2d48-c9be-4c61-ab8d-8ac3edd7b282"]
+}, Open  ]],
+Cell[CellGroupData[{
+Cell[72750, 2014, 424, 10, 28, "Input",ExpressionUUID->"fb7379eb-8b02-4350-b698-c8b5fa5bac24"],
+Cell[73177, 2026, 566, 9, 32, "Output",ExpressionUUID->"0a2e1185-0825-4c41-8a15-ecc494c137c9"]
+}, Open  ]],
+Cell[CellGroupData[{
+Cell[73780, 2040, 285, 5, 28, "Input",ExpressionUUID->"fc3b14d9-ba50-47e4-8e7f-8f7b4006adce"],
+Cell[74068, 2047, 743, 14, 52, "Output",ExpressionUUID->"f05af72e-e0d6-4cff-bb47-d59d7575f5c0"]
+}, Open  ]],
+Cell[CellGroupData[{
+Cell[74848, 2066, 218, 5, 28, "Input",ExpressionUUID->"8113e6bc-98c9-487a-930a-9fabc5796daf"],
+Cell[75069, 2073, 2735, 56, 55, "Output",ExpressionUUID->"3725085d-8983-4388-b19a-63376a805fe4"]
+}, Open  ]],
+Cell[CellGroupData[{
+Cell[77841, 2134, 282, 7, 28, "Input",ExpressionUUID->"cd4810d6-87f0-490b-acc3-2c2d10c821ed"],
+Cell[78126, 2143, 318, 5, 46, "Output",ExpressionUUID->"caf8a0d8-eea2-4b0c-8bb7-21b8ddcc5db2"]
+}, Open  ]],
+Cell[CellGroupData[{
+Cell[78481, 2153, 596, 14, 105, "Input",ExpressionUUID->"ed9aa4ad-b0db-40a5-81f5-0318c9a062fd"],
+Cell[79080, 2169, 320, 6, 32, "Output",ExpressionUUID->"25dfc7d4-acc3-47e0-8971-630cacbb64ca"]
+}, Open  ]],
+Cell[CellGroupData[{
+Cell[79437, 2180, 368, 9, 28, "Input",ExpressionUUID->"5bff8c62-49bb-4d95-b873-0fbd4902d52a"],
+Cell[79808, 2191, 478, 9, 21, "Message",ExpressionUUID->"e295c24f-cd5e-41f0-b000-ebc1494db615"],
+Cell[80289, 2202, 328, 5, 32, "Output",ExpressionUUID->"627edffd-c942-4b9b-821e-f487cfc1ad15"]
+}, Open  ]],
+Cell[80632, 2210, 264, 6, 34, "Text",ExpressionUUID->"0aaeb1b8-7b05-4a5c-9439-18b4d5db0a3d"],
+Cell[CellGroupData[{
+Cell[80921, 2220, 1158, 27, 143, "Input",ExpressionUUID->"c738078b-4ce8-42b2-8500-41a58b312cd3"],
+Cell[82082, 2249, 14369, 274, 71, "Output",ExpressionUUID->"d6a32367-48c0-4cc7-b60a-86d9b371c1aa"]
+}, Open  ]],
+Cell[96466, 2526, 195, 6, 56, "Text",ExpressionUUID->"2adf5d8c-0002-4230-be9d-707cc1149abd"],
+Cell[96664, 2534, 273, 7, 56, "Text",ExpressionUUID->"51183f82-7f1a-46f2-a96d-50b2617565c4"],
+Cell[96940, 2543, 192, 5, 34, "Text",ExpressionUUID->"0f380461-32c1-40bc-8a0d-fb5cbe46959c"],
+Cell[97135, 2550, 196, 5, 34, "Text",ExpressionUUID->"f85c7479-2e20-4371-80e4-eb7f293e505d"],
+Cell[97334, 2557, 236, 6, 56, "Text",ExpressionUUID->"2a0bf8c2-2156-45a3-8a81-ba72bfbaf070"],
+Cell[97573, 2565, 2882, 73, 239, "Input",ExpressionUUID->"828c8420-0a1e-472a-b409-617b7a184423"],
+Cell[100458, 2640, 5301, 111, 466, "Input",ExpressionUUID->"08a34326-eb86-4962-b923-be033a413cb3"]
+}
+]
+*)
+
